@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { ChevronDown } from 'lucide-react'
 import '../styles/main.css';
 import { Particles } from "@tsparticles/react";
-
+import ABlogo from './AbLogo.jsx';
 
 
 
@@ -101,8 +101,9 @@ export default function HeroSection({ onNav }) {
 
 
       <div className="hero-content">
-        <div className="hero-avatar" />
-
+      <div className="hero-avatar">
+  <ABlogo />
+</div>
         <h1 className="hero-title">
           {renderTypedText()}
           {showCursor && <span className="hero-cursor">|</span>}

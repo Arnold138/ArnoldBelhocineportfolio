@@ -98,11 +98,11 @@ const NavBar = ({ onNav }) => {
 
   const navigationItems = [
     { id: 'accueil', label: 'Accueil', target: 'home' },
-    { id: 'apropos', label: 'À Propos', target: 'about' },
+    { id: 'about', label: 'À Propos', target: 'about' },
     { id: 'projets', label: 'Projets', target: 'projects' },
     { id: 'contact', label: 'Contact', target: 'contact' }
   ];
-
+  
   const handleNavClick = (target) => {
     onNav(target);
   };

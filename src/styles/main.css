@@ -1,3 +1,33 @@
+:root {
+  --bg: #fff;
+  --bg2: #f5f7fa;
+  --text: #111827;
+  --subtitle: #4b5563;
+  --primary: #3b82f6;
+  --secondary: #8b5cf6;
+  --gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  --gradient-text: linear-gradient(90deg, #2563eb 0%, #8b5cf6 100%);
+  --button-border: #d1d5db;
+  --button-hover: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  --card-bg: #f9fafb;
+}
+
+/* Thème dark */
+body[data-theme="dark"] {
+  --bg: #161821;
+  --bg2: #242743;
+  --text: #e8eaf2;
+  --subtitle: #c7d0e4;
+  --primary: #8d7aff;
+  --secondary: #9ecfff;
+  --gradient: linear-gradient(135deg, #282b43, #392969 90%);
+  --gradient-text: linear-gradient(90deg, #9ecfff 0%, #8d7aff 100%);
+  --button-border: #23243a;
+  --button-hover: linear-gradient(135deg, #9ecfff, #8d7aff);
+  --card-bg: #1c1f2b;
+}
+
+
 .hero {
   position: relative;
   min-height: 100vh;
@@ -282,5 +312,11 @@
   .btn-primary, .btn-outline {
     font-size: 22px;
     font-weight: 100;
+  }
+}
+@media (max-width: 600px) {
+  .hero-avatar {
+    width: 64px;
+    height: 64px;
   }
 }

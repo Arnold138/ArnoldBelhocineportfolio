@@ -4,9 +4,13 @@ import HeroSection from './components/HeroSection'
 import ProjectsSection from './components/ProjectsSection'
 import ContactSection from './components/ContactSection'
 import AboutSection from './components/AboutSection'
+import Footer from './components/Footer.jsx'
 import kasaImg from './assets/images/kasalogo.png'
 import grimoireImg from '../src/assets/images/victorhugo.jpg';
 import ArcanaGames from '../src/assets/images/ArcanaGame_Logo_detourer.png';
+
+
+
 export default function App() {
   const scrollTo = (id) =>
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -53,9 +57,7 @@ export default function App() {
         <ContactSection />
       </main>
 
-      <footer style={{ textAlign: 'center', padding: '2rem 0', background: '#f5f5f7', color: '#86868b' }}>
-        © 2025 Portfolio Arnold Belhocine — Conçu avec React
-      </footer>
+        <Footer />
     </>
   )
 }
