@@ -1,8 +1,12 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
-export default {
-  base: './', // ou '/nom-du-repo/' si c’est dans un sous-dossier
+
+export default defineConfig({
+  plugins: [react()],
+  base: './',
   build: {
-    outDir: 'docs'
+    outDir: 'docs',
+    emptyOutDir: true, // Supprime l'ancien contenu avant chaque build
   }
-}
+});
