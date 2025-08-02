@@ -1,0 +1,61 @@
+import React from 'react'
+import NavBarr from './components/NavBarr'
+import HeroSection from './components/HeroSection'
+import ProjectsSection from './components/ProjectsSection'
+import ContactSection from './components/ContactSection'
+import AboutSection from './components/AboutSection'
+import kasaImg from './assets/images/kasalogo.png'
+import grimoireImg from '../src/assets/images/victorhugo.jpg';
+import ArcanaGames from '../src/assets/images/ArcanaGame_Logo_detourer.png';
+export default function App() {
+  const scrollTo = (id) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+
+  // Projets exemple
+  const exampleProjects = [
+  {
+    id: 1,
+    title: "Collaboration: Front-End et Back-End",
+    image: ArcanaGames,
+    fullDescription: `Présentation du projet<br/><br/>Arcana Games est une plateforme web développée en collaboration avec un entrepreneur, dédiée à la réservation et à la personnalisation d’escape games ainsi que de murder parties thématiques.<br/>Projet réalisé front-end et back-end from scratch, offrant aux utilisateurs la possibilité de créer leur propre expérience sur mesure, de réserver des scénarios existants, d’envoyer des messages et de découvrir l’univers du créateur.<br/>Mise en place d’un design immersif et mystérieux avec animations avancées (keyframes CSS, particules animées) pour renforcer l’expérience utilisateur.<br/>Implémentation d’un système complet de gestion des réservations avec calendrier interactif, horloge personnalisée, envoi automatisé d’emails (avec logo de la société) au client et au gérant, ainsi qu’un système de messagerie interne sécurisé.<br/><br/>Compétences mises en œuvre<br/><br/>React pour le développement d’interfaces dynamiques, responsives et immersives.<br/>Node.js et Express pour le développement serveur et la création d’API RESTful.<br/>MongoDB pour la gestion et la modélisation des données.<br/>Postman pour le test et la validation des endpoints API.<br/>Gmail API pour la gestion et l’automatisation des emails.<br/>Animations avancées avec CSS keyframes et particules animées.<br/>Gestion complète du workflow back-end et front-end avec Vite pour un développement optimisé.<br/><br/>Valeur ajoutée et maîtrise<br/><br/>Arcana Games démontre une maîtrise complète du développement full stack : intégration totale du front-end (React, animations, responsive) et du back-end (API Node/Express, gestion des emails, automatisation des réservations).<br/>Ce projet illustre la capacité à concevoir et livrer une plateforme sur mesure, fiable, évolutive et riche en fonctionnalités interactives, adaptée à un concept original et immersif.<br/><br/>`,
+    tech: ["React", "Node.js", "JavaScript", "Express", "Vite","API"],
+    link: "https://deft-tiramisu-cee0c3.netlify.app/",
+    // Pas de linkGitHub car projet privé
+  },
+  {
+    id: 2,
+    title: "Application Immobilière KASA",
+    image: kasaImg,
+    fullDescription: `Présentation du projet<br/><br/>Développement complet du front-end de l’application web de location immobilière Kasa avec React et React Router.<br/>Implémentation d’une architecture de composants claire et réutilisable à partir des maquettes Figma responsives.<br/><br/>Gestion dynamique des routes avec React Router, incluant la navigation par ID, la gestion des erreurs (404 personnalisée) et l’affichage conditionnel des données.<br/><br/>Intégration d’une galerie photo avec navigation circulaire (retour à la première image depuis la dernière et inversement) et gestion spécifique pour les galeries à une seule image.<br/>Mise en place de composants Collapse interactifs avec animations CSS fluides.<br/><br/>Utilisation de SASS pour la structuration et la modularisation du style.<br/>Initialisation du projet avec Vite pour un environnement de développement rapide et optimisé.<br/>Simulation des données via un fichier JSON en attendant l’intégration du back-end.<br/><br/>Tests et vérifications des fonctionnalités avec Postman pour anticiper la connexion à l’API.<br/><br/>Compétences mises en œuvre<br/><br/>React pour le développement d’interfaces dynamiques et modulaires.<br/>React Router pour la gestion du routage client et la navigation conditionnelle.<br/>SASS pour la gestion avancée et modulaire des styles.<br/>Animations CSS pour fluidifier les transitions et améliorer l’expérience utilisateur.<br/>Vite pour un démarrage de projet rapide et une compilation optimisée.<br/>JSON pour simuler des données en phase de développement.<br/>Postman pour tester et valider les fonctionnalités prévues pour l’intégration API.<br/><br/>Valeur ajoutée et maîtrise<br/><br/>Projet validé et conforme aux standards professionnels, démontrant une maîtrise du développement front-end moderne, de la navigation client avancée, de l’intégration responsive à partir de maquettes Figma, et des bonnes pratiques de performance et d’optimisation.<br/><br/>`,
+    tech: ["React", "Node.js", "JavaScript", "Vite","Framer Motion"],
+    link: "https://deft-tiramisu-cee0c3.netlify.app/",
+    linkGitHub: "https://github.com/Arnold138/Projet-React.git"
+  },
+  {
+    id: 3,
+    title: "Gestion Complète du Backend",
+    image: grimoireImg,
+    fullDescription:`Présentation du projet<br/><br/>Développement complet du back-end d’un site de notation de livres ("Mon Vieux Grimoire").<br/>Réalisation d’une API RESTful sécurisée avec Node.js et Express, connectée à une base de données MongoDB via Mongoose.<br/>Mise en place d’une architecture MVC claire et maintenable.<br/><br/>Points techniques clés<br/><br/>CRUD complet (Créer, Lire, Mettre à jour, Supprimer) pour la gestion des livres et des notations.<br/>Authentification sécurisée des utilisateurs avec JWT et bcrypt.<br/>Gestion avancée des middlewares pour la validation, la sécurité et la gestion des erreurs.<br/>Téléchargement et optimisation d’images côté serveur (compression, réduction de poids) selon les bonnes pratiques du Green Code.<br/>Calcul dynamique des notes moyennes pour chaque livre.<br/>Stockage et traitement des données sécurisé, conforme aux bonnes pratiques.<br/><br/>Compétences mises en œuvre<br/><br/>Node.js / Express pour le développement serveur.<br/>MongoDB / Mongoose pour la modélisation et la persistance des données.<br/>JWT, bcrypt pour l’authentification et la sécurité.<br/>Multer / Sharp pour la gestion et l’optimisation des images.<br/>Conception d’API RESTful performantes et maintenables.<br/>Architecture MVC pour structurer le projet.<br/><br/>Valeur ajoutée et maîtrise<br/><br/>Projet validé et conforme aux standards professionnels, démontrant une maîtrise des technologies backend modernes, de la sécurité, de la performance et de la qualité du code.<br/><br/>`,
+    tech: ["React.js", "JavaScript", "API", "Express", "Node.js"],
+    link: "https://jade-gumdrop-4ca1be.netlify.app/",
+    linkGitHub: "https://github.com/Arnold138/Monvieuxgrimoire.git"
+  }
+];
+
+  return (
+    <>
+      <NavBarr onNav={scrollTo} />
+
+      <main style={{ marginTop: '0' }}>
+        <HeroSection onNav={scrollTo} />
+        <ProjectsSection projects={exampleProjects} />
+        <AboutSection />
+        <ContactSection />
+      </main>
+
+      <footer style={{ textAlign: 'center', padding: '2rem 0', background: '#f5f5f7', color: '#86868b' }}>
+        © 2025 Portfolio Arnold Belhocine — Conçu avec React
+      </footer>
+    </>
+  )
+}

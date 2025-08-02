@@ -1,0 +1,503 @@
+/* ProjectsSection avec effets de scroll */
+
+.projects-section {
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effet de parchemin qui se déroule */
+.parchment-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(251, 249, 239, 0.9) 0%,
+    rgba(254, 252, 232, 0.8) 50%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
+  
+  /* Effet de déroulement basé sur le scroll */
+  clip-path: polygon(
+    0 0,
+    calc(100% * var(--scroll-progress)) 0,
+    calc(100% * var(--scroll-progress)) 100%,
+    0 100%
+  );
+  
+  /* Texture de parchemin */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(206, 180, 127, 0.1) 1px, transparent 1px),
+      radial-gradient(circle at 80% 50%, rgba(206, 180, 127, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.3;
+  }
+  
+  /* Ombre du parchemin */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: calc(100% - 100% * var(--scroll-progress));
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.05),
+      transparent
+    );
+    transform: translateX(100%);
+  }
+}
+
+.projects-container {
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header de la section avec animation */
+.projects-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  transform: translateY(3rem);
+  opacity: 0;
+  transition: all 0.8s ease;
+}
+
+.projects-header.header-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.projects-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #111827;
+  margin-bottom: 1rem;
+  position: relative;
+  
+  /* Effet d'écriture progressive */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+    transition: width 1s ease 0.5s;
+  }
+}
+
+
+.projects-divider {
+  width: 5rem;
+  height: 0.25rem;
+  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+  margin: 0 auto 1.5rem;
+  transform: scaleX(0);
+  transition: transform 0.6s ease 0.3s;
+}
+
+.header-visible .projects-divider {
+  transform: scaleX(1);
+}
+
+.projects-subtitle {
+  font-size: 1.25rem;
+  color: #4b5563;
+  max-width: 32rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Grille des projets */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Carte de projet avec animations avancées */
+.project-card {
+  background: #ffffff;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(4rem) rotateX(15deg);
+  opacity: 0;
+  transform-origin: bottom;
+  position: relative;
+  
+  /* Effet de flottement */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.03) 0%,
+      rgba(139, 92, 246, 0.03) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+.project-card:hover {
+  transform: translateY(-1rem) rotateX(0deg);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.project-card-visible {
+  transform: translateY(0) rotateX(0deg);
+  opacity: 1;
+}
+
+.project-card-hidden {
+  transform: translateY(4rem) rotateX(15deg);
+  opacity: 0;
+}
+
+/* Image du projet */
+.project-image-container {
+  height: 12rem;
+  background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+  background: white;
+}
+
+.project-image:hover {
+  transform: scale(1.2);
+}
+
+/* Contenu du projet */
+.project-content {
+  padding: 1.5rem;
+  position: relative;
+}
+
+.project-title {
+  white-space: nowrap;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 0.75rem;
+  position: relative;
+  
+  /* Effet de soulignement progressif */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+    transition: width 0.3s ease;
+  }
+}
+
+.project-card:hover .project-title::after {
+  width: 100%;
+}
+
+.project-description {
+  color: #4b5563;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* Technologies avec animation */
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tech-tag {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  color: #374151;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+}
+
+.project-card:hover .tech-tag {
+  transform: scale(1);
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color:white;
+}
+
+/* Lien du projet */
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  color: #2563eb;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -0.5rem;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+    border-radius: 0.25rem;
+    transition: width 0.3s ease;
+    opacity: 0.1;
+  }
+  
+  &:hover::before {
+    width: calc(100% + 1rem);
+  }
+}
+
+.project-link:hover {
+  color: #1d4ed8;
+  transform: translateX(0.5rem);
+}
+
+.project-link-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.project-link:hover .project-link-icon {
+  transform: translateX(0.25rem);
+}
+
+/* Animation d'entrée échelonnée */
+.project-card-visible {
+  animation: cardReveal 0.8s ease forwards;
+}
+
+@keyframes cardReveal {
+  0% {
+    transform: translateY(4rem) rotateX(15deg);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-0.5rem) rotateX(-2deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+/* État vide */
+.projects-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #6b7280;
+  font-size: 1.125rem;
+} 
+
+.projects-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.projects-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.dropdown-toggle {
+  font-family: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  transition: background 0.2s;
+  border-radius: 14px;
+  &:hover {
+    background: #f2f2f4;
+  }
+}
+
+  //* Grille des projets - FIX pour éviter l'influence mutuelle */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  // CRUCIAL : Chaque card doit avoir sa propre hauteur
+  grid-auto-rows: max-content; // Au lieu de auto
+  align-items: start; // Au lieu de stretch (valeur par défaut)
+}
+
+@media (min-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    // Maintenir l'indépendance des hauteurs
+    grid-auto-rows: max-content;
+    align-items: start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+    // Maintenir l'indépendance des hauteurs
+    grid-auto-rows: max-content;
+    align-items: start;
+  }
+}
+
+/* Carte de projet avec animations avancées - MISE À JOUR */
+.project-card {
+  background: #ffffff;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(4rem) rotateX(15deg);
+  opacity: 0;
+  transform-origin: bottom;
+  position: relative;
+  
+  // CRUCIAL : Forcer chaque card à être indépendante
+  align-self: start;
+  height: fit-content; // Au lieu de auto
+  
+  /* Effet de flottement */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.03) 0%,
+      rgba(139, 92, 246, 0.03) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Contenu du projet - MISE À JOUR */
+.project-content {
+  padding: 1.5rem;
+  position: relative;
+  // Assurer que le contenu ne force pas une hauteur uniforme
+  height: auto;
+  min-height: unset;
+}
+
+/* Dropdown content - AMÉLIORATION */
+.dropdown-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(.5,1.8,.4,.8), padding 0.25s;
+  padding: 0 0;
+  margin-bottom: 15px;
+  color: #333;
+  
+  // Assurer l'isolation complète
+  position: relative;
+  z-index: 1;
+  
+  &.open {
+    max-height: 1200px;
+    padding: 1rem 0;
+    // Empêcher l'influence sur les autres cards
+    contain: layout style;
+  }
+}
+.project-linkexternal { 
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+.git { 
+  width: 30px;
+  object-fit: cover;
+  align-items: center;
+
+}
+
+.project-linkexternal ,.git {
+  margin-left: 10px;
+}
+img.project-image {
+  object-fit: scale-down;
+}
+
+@media(min-width:1400px) {
+
+    .projects-grid {
+      max-width: 100%;
+    }
+  }
