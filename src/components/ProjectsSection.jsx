@@ -75,11 +75,11 @@ const ProjectsSection = ({ projects }) => {
                 }}
               >
                 <div className="project-image-container">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="project-image"
-                  />
+               <img
+                  src={project.image}
+                  alt={project.title}
+                  className={`project-image ${project.imageClass || ''}`}
+                />
                 </div>
 
                 <div className="project-content">

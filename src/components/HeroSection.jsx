@@ -94,7 +94,7 @@ export default function HeroSection({ onNav }) {
       
       <div className="hero-bg" />
       <div className="css-particles">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(35)].map((_, i) => (
           <span className={`particle p${i+1}`} key={i}></span>
         ))}
       </div>

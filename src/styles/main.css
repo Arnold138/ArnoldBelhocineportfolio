@@ -205,7 +205,7 @@ body[data-theme="dark"] {
 .particle {
   position: absolute;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3a1b81, #72185fad 70%);
+  background: linear-gradient(210deg, #26007f, #16131568 70%);
   opacity: 0.20;
 }
 
@@ -230,6 +230,22 @@ body[data-theme="dark"] {
 .p18 { left: 70%; top: 59%; animation: floatC 8.9s infinite alternate;  animation-delay: 2.7s; width: 8px; height: 8px; }
 .p19 { left: 44%; top: 9%;  animation: floatD 8.6s infinite alternate;  animation-delay: 1.9s; width: 6px; height: 6px; }
 .p20 { left: 53%; top: 88%; animation: floatA 9.2s infinite alternate;  animation-delay: 2.5s; width: 7px; height: 7px; }
+.p21 { left: 10%; top: 50%; animation: floatB 7.4s infinite alternate;  animation-delay: 1.4s; width: 8px; height: 8px; }
+.p22 { left: 65%; top: 40%; animation: floatC 8.3s infinite alternate;  animation-delay: 0.9s; width: 9px; height: 9px; }
+.p23 { left: 30%; top: 80%; animation: floatD 7.9s infinite alternate;  animation-delay: 1.8s; width: 6px; height: 6px; }
+.p24 { left: 85%; top: 20%; animation: floatE 8.4s infinite alternate;  animation-delay: 2.4s; width: 7px; height: 7px; }
+.p25 { left: 55%; top: 65%; animation: floatA 9.3s infinite alternate;  animation-delay: 1.2s; width: 8px; height: 8px; }
+.p26 { left: 40%; top: 30%; animation: floatB 8.7s infinite alternate;  animation-delay: 2.0s; width: 9px; height: 9px; }
+.p27 { left: 75%; top: 50%; animation: floatC 7.6s infinite alternate;  animation-delay: 1.5s; width: 6px; height: 6px; }
+.p28 { left: 20%; top: 70%; animation: floatD 8.8s infinite alternate;  animation-delay: 2.8s; width: 7px; height: 7px; }
+.p29 { left: 90%; top: 30%; animation: floatE 9.0s infinite alternate;  animation-delay: 1.0s; width: 8px; height: 8px; }
+.p30 { left: 25%; top: 45%; animation: floatA 8.5s infinite alternate;  animation-delay: 2.3s; width: 9px; height: 9px; }
+.p31 { left: 60%; top: 55%; animation: floatB 7.3s infinite alternate;  animation-delay: 1.6s; width: 6px; height: 6px; }
+.p32 { left: 15%; top: 75%; animation: floatC 8.1s infinite alternate;  animation-delay: 2.9s; width: 7px; height: 7px; }
+.p33 { left: 50%; top: 85%; animation: floatD 9.4s infinite alternate;  animation-delay: 1.3s; width: 8px; height: 8px; }
+.p34 { left: 35%; top: 10%; animation: floatE 8.0s infinite alternate;  animation-delay: 2.6s; width: 9px; height: 9px; }
+.p35 { left: 70%; top: 80%; animation: floatA 7.2s infinite alternate;  animation-delay: 1.8s; width: 6px; height: 6px; }
+
 
 
 /* =================== FIN PARTICULES =================== */

@@ -8,6 +8,8 @@ import Footer from './components/Footer.jsx'
 import kasaImg from './assets/images/kasalogo.png'
 import grimoireImg from '../src/assets/images/victorhugo.jpg';
 import ArcanaGames from '../src/assets/images/ArcanaGame_Logo_detourer.png';
+import MonGif from '../src/assets/images/gitflamme.gif';
+import { Link } from 'lucide-react'
 
 
 
@@ -43,6 +45,16 @@ export default function App() {
     tech: ["React.js", "JavaScript", "API", "Express", "Node.js"],
     link: "https://jade-gumdrop-4ca1be.netlify.app/",
     linkGitHub: "https://github.com/Arnold138/Monvieuxgrimoire.git"
+  },
+  {
+    id: 4,
+    title: "Animation entièrement en CSS",
+    image: MonGif,
+    imageClass: "flame-animation",
+    fullDescription: `Présentation du projet<br/><br/>Création d'une animation de flamme ultra-réaliste développée exclusivement en CSS pur, sans aucune dépendance JavaScript.<br/>Conception d'un système d'animation complexe utilisant les propriétés CSS avancées, les dégradés radiaux et les keyframes pour reproduire fidèlement le comportement naturel d'une flamme.<br/>Architecture multi-couches avec gestion responsive et accessibilité intégrée.<br/><br/>Points techniques clés<br/><br/>Système de flammes multi-couches : flamme principale, cœur interne et centre ultra-chaud avec des animations décalées pour un rendu tridimensionnel.<br/>8 animations de keyframes distinctes pour les étincelles avec trajectoires aléatoires, rotations dynamiques et opacité progressive.<br/>Utilisation avancée des dégradés radiaux pour simuler la température et l'intensité lumineuse (blanc chaud au centre, jaune, orange, rouge vers l'extérieur).<br/>Animations fluides avec ease-in-out et durées variables (0.3s à 3.5s) pour créer un mouvement naturel et organique.<br/>Effets de lueur au sol avec radial-gradient et animation de pulsation pour l'éclairage ambiant.<br/>Gestion des pseudo-éléments ::before et ::after pour les couches internes de la flamme.<br/>Optimisation des performances avec transform et filter plutôt que des propriétés coûteuses.<br/><br/>Compétences mises en œuvre<br/><br/>CSS Keyframes avancées avec timing-functions personnalisées.<br/>Transforms 2D complexes (scale, rotate, translate) combinées dans une seule propriété.<br/>Maîtrise des dégradés radiaux multi-stops pour les effets de température.<br/>Architecture CSS modulaire avec sélecteurs nth-child pour la variété des particules.<br/>Responsive design avec media queries et unités clamp() pour l'adaptabilité.<br/>Accessibilité avec prefers-reduced-motion pour les utilisateurs sensibles aux animations.<br/>Optimisation des performances avec will-change et transform3d implicites.<br/><br/>Valeur ajoutée et maîtrise<br/><br/>Projet démontrant une expertise technique approfondie en CSS pur, capable de reproduire des phénomènes physiques complexes sans framework.<br/>Illustration parfaite de la puissance des CSS modernes pour créer des expériences visuelles immersives et performantes.<br/>Code optimisé, maintenable et respectueux des standards d'accessibilité web.<br/><br/>`,
+    tech: ["HTML", "CSS", "Keyframes", "Animation", "Responsive"],
+    link: "https://arnold138.github.io/Flammeraliste/",
+    linkGitHub: "https://github.com/Arnold138/Flammeraliste.git"
   }
 ];
 
