@@ -509,3 +509,18 @@ img.project-image {
       max-width: 100%;
     }
   }
+
+
+  @media (max-width: 530px) {
+    h3.project-title {
+      font-size: 16px;
+  }
+  
+  a.project-link {
+      font-size: 15px;
+  }
+  .project-linkexternal {
+    gap: 20px;
+}
+  
+  }
