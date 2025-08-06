@@ -1,97 +1,123 @@
 import React, { useState, useEffect } from 'react'
 import { ChevronDown } from 'lucide-react'
 import '../styles/main.css';
-import { Particles } from "@tsparticles/react";
-import ABlogo from './AbLogo.jsx';
-
-
-
-
 
 export default function HeroSection({ onNav }) {
-  // Bloc bien découpé et pause en minuscule
-  const blocks = [
-    { text: "Parce que votre projet mérite plus que du code", pause: 1000 },
-    { text: " : ", pause: 0 },
-    { text: "une vision", pause: 1000 },
-    { text: ", ", pause: 0 },
-    { text: "de l’impact.", pause: 1000 },
-    { text: " Construisons-le ensemble.", pause: 0 },
+  // Triangle narratif inversé - 3 niveaux
+  const narrativeBlocks = [
+    // Niveau 1 - Hero Statement (Impact Maximum)
+    { text: "Vos projets, notre passion", pause: 1200, className: "hero-level-1", level: 1 },
+    // Niveau 2 - Value Proposition 
+    { text: "Chaque pixel compte, chaque interaction inspire", pause: 800, className: "hero-level-2", level: 2 },
+    // Niveau 3 - Emotional Connection
+    { text: "Créons votre Histoire.", pause: 0, className: "hero-level-3", level: 3 },
   ];
 
-  const name = 'impact';
+  // Mots avec gradient sélectif
+  const gradientWords = ['Histoire'];
 
-  const [typed, setTyped] = useState('');
-  const [showCursor, setShowCursor] = useState(true);
-  const [isTypingComplete, setIsTypingComplete] = useState(false);
+  const [typedText, setTypedText] = useState('');
+  const [isTextComplete, setIsTextComplete] = useState(false);
+  const [showAvatar, setShowAvatar] = useState(false);
 
-  // Toute la logique d'écriture dans un seul useEffect
+  // Animation narrative séquentielle avec timing précis
   useEffect(() => {
-    let blockIdx = 0;     // index du bloc en cours
-    let charIdx = 0;      // index du caractère dans le bloc
-    let output = "";      // texte à afficher
+    let blockIdx = 0;
+    let charIdx = 0;
+    let output = "";
     let timeout;
 
     function typeNextChar() {
-      const currentBlock = blocks[blockIdx];
+      const currentBlock = narrativeBlocks[blockIdx];
       if (!currentBlock) {
-        setIsTypingComplete(true);
-        setTimeout(() => setShowCursor(false), 2000);
+        // Toute l'animation est terminée, déclencher l'avatar
+        setIsTextComplete(true);
+        setTimeout(() => setShowAvatar(true), 200); // Avatar apparaît 200ms après la fin du texte
         return;
       }
 
+      // Animation en cours
+
       if (charIdx < currentBlock.text.length) {
         output += currentBlock.text[charIdx];
-        setTyped(output);
+        setTypedText(output);
         charIdx++;
-        timeout = setTimeout(typeNextChar, 50); // délai entre chaque lettre
+        timeout = setTimeout(typeNextChar, 50);
       } else {
+        // Bloc terminé, passer au suivant après la pause
         blockIdx++;
         charIdx = 0;
-        timeout = setTimeout(typeNextChar, currentBlock.pause); // on attend la pause
+        if (currentBlock.pause > 0) {
+          timeout = setTimeout(typeNextChar, currentBlock.pause);
+        } else {
+          typeNextChar(); // Pas de pause, continuer immédiatement
+        }
       }
     }
 
-    timeout = setTimeout(typeNextChar, 300); // délai avant de commencer
-    return () => clearTimeout(timeout); // clean-up si le composant est démonté
+    // Démarrage initial avec délai de 300ms
+    timeout = setTimeout(typeNextChar, 300);
+    return () => clearTimeout(timeout);
   }, []);
 
-  // Gestion du curseur clignotant (pareil que toi)
-  useEffect(() => {
-    if (!isTypingComplete) {
-      const blink = setInterval(() => {
-        setShowCursor(v => !v)
-      }, 500)
-      return () => clearInterval(blink)
-    }
-  }, [isTypingComplete])
+  // Curseur statique (plus d'animation de clignotement)
 
-  // Gestion du mot "impact" en dégradé (pareil que toi)
-  const renderTypedText = () => {
-    const nameStartIndex = typed.indexOf(name)
-    const nameEndIndex = nameStartIndex + name.length
+  // Rendu du texte narratif avec les classes appropriées et gradients sélectifs
+  const renderNarrativeText = () => {
+    let currentIndex = 0;
+    
+    return narrativeBlocks.map((block, blockIndex) => {
+      const blockText = block.text;
+      const blockStart = currentIndex;
+      currentIndex += blockText.length;
 
-    return typed.split('').map((char, index) => {
-      if (index >= nameStartIndex && index < nameEndIndex) {
+      // Vérifier si ce bloc est dans le texte tapé
+      if (typedText.length >= blockStart) {
+        const visibleLength = Math.min(typedText.length - blockStart, blockText.length);
+        const visibleText = blockText.substring(0, visibleLength);
+        
+        // Vérifier si ce bloc contient des mots avec gradient
+        const hasGradientWords = gradientWords.some(word => blockText.includes(word));
+        
+        if (hasGradientWords && block.level === 3) {
+          // Appliquer le gradient sélectif pour "success story"
+          return (
+            <div key={blockIndex} className={block.className}>
+              {visibleText.split(' ').map((word, wordIndex) => {
+                const fullWord = word;
+                const isGradientWord = gradientWords.some(gradientWord => 
+                  gradientWord.includes(fullWord) || fullWord.includes('Histoire') || fullWord.includes('Histoire')
+                );
+                
+                if (isGradientWord || word === 'Histoire' || word === 'Histoire') {
+                  return (
+                    <span key={wordIndex} className="gradient-text">
+                      {word}{wordIndex < visibleText.split(' ').length - 1 ? ' ' : ''}
+                    </span>
+                  );
+                }
+                return (
+                  <span key={wordIndex}>
+                    {word}{wordIndex < visibleText.split(' ').length - 1 ? ' ' : ''}
+                  </span>
+                );
+              })}
+            </div>
+          );
+        }
+        
         return (
-          <span key={index} className="gradient-text">
-            {char}
-          </span>
-        )
+          <div key={blockIndex} className={block.className}>
+            {visibleText}
+          </div>
+        );
       }
-      return (
-        <span key={index}>
-          {char}
-        </span>
-      )
-    })
-  }
+      return null;
+    }).filter(Boolean);
+  };
 
-  // Rendu du composant (inchangé)
   return (
     <section id="home" className="hero">
-
-      
       <div className="hero-bg" />
       <div className="css-particles">
         {[...Array(35)].map((_, i) => (
@@ -99,16 +125,21 @@ export default function HeroSection({ onNav }) {
         ))}
       </div>
 
-
       <div className="hero-content">
-      <div className="hero-avatar">
-  <ABlogo />
-</div>
-        <h1 className="hero-title">
-          {renderTypedText()}
-          {showCursor && <span className="hero-cursor">|</span>}
-        </h1>
+        {/* Triangle narratif inversé - Texte principal */}
+        <div className="hero-narrative-text">
+          {renderNarrativeText()}
+          {!isTextComplete && <span className="hero-cursor">|</span>}
+        </div>
 
+        {/* Avatar repositionné après le texte avec animation sophistiquée */}
+        <div className={`hero-avatar ${showAvatar ? 'avatar-visible' : 'avatar-hidden'}`}>
+          <div className="avatar-container">
+            <div className="avatar-name">AB</div>
+          </div>
+        </div>
+
+        {/* Boutons d'action */}
         <div className="hero-buttons">
           <button onClick={() => onNav('projects')} className="btn btn-primary">
             Voir mes projets

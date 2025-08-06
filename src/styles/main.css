@@ -10,6 +10,15 @@
   --button-border: #d1d5db;
   --button-hover: linear-gradient(135deg, #3b82f6, #8b5cf6);
   --card-bg: #f9fafb;
+  
+  /* Variables pour le triangle narratif */
+  --hero-level-1-size: 5rem;
+  --hero-level-2-size: 3.2rem;
+  --hero-level-3-size: 2.5rem;
+  --avatar-transition-size: 5rem;
+  --hero-timing-fast: 600ms;
+  --hero-timing-medium: 800ms;
+  --hero-timing-slow: 1200ms;
 }
 
 /* Thème dark */
@@ -27,6 +36,7 @@ body[data-theme="dark"] {
   --card-bg: #1c1f2b;
 }
 
+/* =================== HERO SECTION =================== */
 
 .hero {
   position: relative;
@@ -36,6 +46,8 @@ body[data-theme="dark"] {
   align-items: center;
   justify-content: center;
 }
+
+
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -57,87 +69,222 @@ body[data-theme="dark"] {
   from { opacity: 0; transform: translateY(2rem); }
 }
 
+/* =================== TRIANGLE NARRATIF INVERSÉ =================== */
+
+.hero-narrative-text {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  margin: 0 auto 3.5rem;
+  max-width: 1000px;
+  line-height: 1.3;
+}
+
+/* Niveau 1 - Hero Statement (Impact Maximum) */
+.hero-level-1 {
+  display: block;
+  font-size: var(--hero-level-1-size);
+  font-weight: 700;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+/* Niveau 2 - Value Proposition */
+.hero-level-2 {
+  display: block;
+  font-size: var(--hero-level-2-size);
+  font-weight: 300;
+  color: var(--text);
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+/* Niveau 3 - Emotional Connection */
+.hero-level-3 {
+  display: block;
+  font-size: var(--hero-level-3-size);
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 3.5rem;
+  letter-spacing: -0.005em;
+  padding: 1rem 0;
+}
+
+/* =================== AVATAR - Animation Sophistiquée =================== */
+
 .hero-avatar {
-  width: 8rem;
-  height: 8rem;
-  margin: 0 auto 2rem;
+  width: var(--avatar-transition-size);
+  height: var(--avatar-transition-size);
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all var(--hero-timing-fast) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.avatar-container {
+  position: relative;
+  width: var(--avatar-transition-size);
+  height: var(--avatar-transition-size);
   border-radius: 50%;
   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  animation: pulse 4s infinite cubic-bezier(.4,0,.2,1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 18px 4px rgba(99,132,255,0.18), 0 4px 12px rgba(0,0,0,0.1);
-    opacity: 0.95;
+.avatar-name {
+  font-size: 1.8rem;
+  color: #fff;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* États de l'avatar */
+.avatar-hidden {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.avatar-visible {
+  opacity: 1;
+  transform: scale(1);
+  animation: avatarReveal var(--hero-timing-fast) cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+             avatarPulse 4s infinite cubic-bezier(.4,0,.2,1) 2s;
+}
+
+/* Animation de révélation de l'avatar */
+@keyframes avatarReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
   }
-  50% {
-    transform: scale(1.06);
-    box-shadow: 0 0 32px 12px rgba(99,132,255,0.26), 0 4px 12px rgba(0,0,0,0.11);
+  100% {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
-.hero-title {
-  font-family: 'Montserrat', sans-serif;
-    font-size: 2.9rem;
-    font-weight: 300;
-    color: #111827;
-    min-height: 4.5rem;
-    margin-bottom: 1rem;
-    width: 100%;
-    margin: 0 auto 40px;
+/* Pulsation subtile toutes les 4 secondes */
+@keyframes avatarPulse {
+  0%, 90%, 100% {
+    transform: scale(1);
+  }
+  5% {
+    transform: scale(1.02);
+  }
 }
+
+/* Micro-interactions hover */
+.avatar-container:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 8px 25px rgba(59, 130, 246, 0.2),
+    0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Effet de révélation des initiales au hover */
+.hero-avatar:hover .avatar-name {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =================== CURSEUR ET GRADIENT =================== */
+
 .hero-cursor {
-  color: #111827;
+  color: var(--text);
   font-weight: 300;
   margin-left: 2px;
+  opacity: 0.8;
 }
 
-.hero-subtitle {
-  font-size: 1.125rem;
-  color: #4b5563;
-  max-width: 36rem;
-  margin: 0 auto 2rem;
-  line-height: 1.5;
+/* Gradient text pour "success story" */
+.gradient-text {
+  background: linear-gradient(90deg, #2563eb 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-weight: 500;
 }
+
+/* =================== BOUTONS =================== */
 
 .hero-buttons {
   display: flex;
   gap: 1rem;
   justify-content: center;
+  margin-top: 2rem;
+  opacity: 0;
+  animation: fadeInButtons 0.6s ease forwards 0.5s;
+}
+
+@keyframes fadeInButtons {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .btn {
   padding: 0.75rem 1.5rem;
   border-radius: 20px;
   cursor: pointer;
-  transition: background 0.3s, color 0.3s;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  transition: all 0.3s ease;
+  border: none;
+  outline: none;
 }
 
 .btn-primary {
-   border: 1px solid #d1d5db;
-  background:transparent;
-  color: #333;
+  border: 1px solid var(--button-border);
+  background: transparent;
+  color: var(--text);
 }
 
 .btn-primary:hover {
-  background:linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: var(--button-hover);
   color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
 }
 
 .btn-outline {
-  border: 1px solid #d1d5db;
-  color: #374151;
+  border: 1px solid var(--button-border);
+  color: var(--subtitle);
   background: transparent;
 }
 
 .btn-outline:hover {
-   background:linear-gradient(135deg, #3b82f6, #8b5cf6);
-   color: white;
+  background: var(--button-hover);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
 }
+
+/* =================== SCROLL INDICATOR =================== */
 
 .hero-scroll {
   display: none;
@@ -145,6 +292,7 @@ body[data-theme="dark"] {
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
+  cursor: pointer;
   animation: bounce 2s infinite;
 }
 
@@ -153,53 +301,48 @@ body[data-theme="dark"] {
   50% { transform: translateX(-50%) translateY(1rem); }
 }
 
-/* Gradient text pour le prénom Arnold */
-.gradient-text {
-  background: linear-gradient(90deg, #2563eb 0%, #8b5cf6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  font-weight: 300;
-}
+/* =================== PARTICULES CSS =================== */
 
-
-/* =================== PARTICULES =================== */
 .css-particles {
   position: absolute;
   width: 100%;
   height: 100%;
-  left: 0; top: 0;
+  left: 0; 
+  top: 0;
   z-index: 0;
   pointer-events: none;
 }
 
 @keyframes floatA {
-  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.14;}
-  50%  { transform: translateY(-40px) translateX(30px) scale(1.11); opacity: 0.25;}
-  100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.19;}
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.14; }
+  50%  { transform: translateY(-40px) translateX(30px) scale(1.11); opacity: 0.25; }
+  100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.19; }
 }
+
 @keyframes floatB {
-  0%   { transform: translateY(0) translateX(0) scale(1);}
-  50%  { transform: translateY(36px) translateX(-24px) scale(1.09);}
-  100% { transform: translateY(0) translateX(0) scale(1);}
+  0%   { transform: translateY(0) translateX(0) scale(1); }
+  50%  { transform: translateY(36px) translateX(-24px) scale(1.09); }
+  100% { transform: translateY(0) translateX(0) scale(1); }
 }
+
 @keyframes floatC {
-  0%   { transform: translateY(0) translateX(0) scale(1);}
-  40%  { transform: translateY(-25px) translateX(-35px) scale(1.07);}
-  80%  { transform: translateY(12px) translateX(17px) scale(1.13);}
-  100% { transform: translateY(0) translateX(0) scale(1);}
+  0%   { transform: translateY(0) translateX(0) scale(1); }
+  40%  { transform: translateY(-25px) translateX(-35px) scale(1.07); }
+  80%  { transform: translateY(12px) translateX(17px) scale(1.13); }
+  100% { transform: translateY(0) translateX(0) scale(1); }
 }
+
 @keyframes floatD {
-  0%   { transform: translateY(0) translateX(0) scale(1);}
-  50%  { transform: translateY(30px) translateX(38px) scale(1.14);}
-  100% { transform: translateY(0) translateX(0) scale(1);}
+  0%   { transform: translateY(0) translateX(0) scale(1); }
+  50%  { transform: translateY(30px) translateX(38px) scale(1.14); }
+  100% { transform: translateY(0) translateX(0) scale(1); }
 }
+
 @keyframes floatE {
-  0%   { transform: translateY(0) translateX(0) scale(1);}
-  40%  { transform: translateY(-26px) translateX(26px) scale(1.11);}
-  90%  { transform: translateY(17px) translateX(-22px) scale(1.08);}
-  100% { transform: translateY(0) translateX(0) scale(1);}
+  0%   { transform: translateY(0) translateX(0) scale(1); }
+  40%  { transform: translateY(-26px) translateX(26px) scale(1.11); }
+  90%  { transform: translateY(17px) translateX(-22px) scale(1.08); }
+  100% { transform: translateY(0) translateX(0) scale(1); }
 }
 
 .particle {
@@ -209,7 +352,7 @@ body[data-theme="dark"] {
   opacity: 0.20;
 }
 
-/* Répartition, positions, tailles, animations variées pour 20 particules */
+/* Distribution des 35 particules avec animations variées */
 .p1  { left: 12%; top: 22%; animation: floatA 8s infinite alternate;  animation-delay: 0s;   width: 7px; height: 7px; }
 .p2  { left: 48%; top: 31%; animation: floatB 7s infinite alternate;  animation-delay: 1.2s; width: 8px; height: 8px; }
 .p3  { left: 78%; top: 15%; animation: floatC 9s infinite alternate;  animation-delay: 2.7s; width: 6px; height: 6px; }
@@ -246,93 +389,198 @@ body[data-theme="dark"] {
 .p34 { left: 35%; top: 10%; animation: floatE 8.0s infinite alternate;  animation-delay: 2.6s; width: 9px; height: 9px; }
 .p35 { left: 70%; top: 80%; animation: floatA 7.2s infinite alternate;  animation-delay: 1.8s; width: 6px; height: 6px; }
 
+/* =================== DESIGN RESPONSIVE =================== */
 
+/* =================== RESPONSIVE BREAKPOINTS =================== */
 
-/* =================== FIN PARTICULES =================== */
-
-
-/* =================== HERO RESPONSIVE =================== */
-
-@media (max-width: 900px) {
-  .hero-title {
-    font-size: 2.1rem;
-    min-height: 3.2rem;
-    margin-bottom: 1rem;
+/* Laptop (900px-1399px) - Réduction proportionnelle de 15% */
+@media (max-width: 1399px) and (min-width: 900px) {
+  :root {
+    --hero-level-1-size: 4.25rem;
+    --hero-level-2-size: 2.7rem;
+    --hero-level-3-size: 2.1rem;
+    --avatar-transition-size: 4.25rem;
   }
-  .hero-avatar {
-    width: 6rem;
-    height: 6rem;
-    margin-bottom: 1.5rem;
-  }
-  .hero-subtitle {
-    font-size: 1rem;
-    max-width: 90vw;
-  }
-  .hero-buttons {
-      gap: 0.8rem;
-      flex-direction: column;
-      width: fit-content;
-      margin: auto;
-  }
-  .hero-content {
-    margin: auto;
+
+  .hero-narrative-text {
+    margin-bottom: 2rem;
   }
 }
 
-@media (max-width: 600px) {
+/* Tablet (600px-899px) - Réduction de 25% */
+@media (max-width: 899px) and (min-width: 600px) {
+  :root {
+    --hero-level-1-size: 4rem;
+    --hero-level-2-size: 2.5rem;
+    --hero-level-3-size: 2rem;
+    --avatar-transition-size: 4rem;
+  }
+
+  .hero-narrative-text {
+    margin-bottom: 2rem;
+    max-width: 800px;
+  }
+
+  .hero-level-1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-level-2 {
+    margin-bottom: 1rem;
+  }
+
+  .hero-level-3 {
+    margin-bottom: 2.5rem;
+    padding: 0.8rem 0;
+  }
+
+  .hero-buttons {
+    gap: 0.8rem;
+    flex-direction: column;
+    width: fit-content;
+    margin: 2rem auto 0;
+  }
+
+  .avatar-name {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile (430px-599px) - Réduction de 40% */
+@media (max-width: 599px) and (min-width: 430px) {
+  :root {
+    --hero-level-1-size: 3.2rem;
+    --hero-level-2-size: 1.9rem;
+    --hero-level-3-size: 1.6rem;
+    --avatar-transition-size: 3.5rem;
+  }
+
   .hero {
     min-height: 92vh;
     padding: 1.2rem 0.5rem 2rem 0.5rem;
     flex-direction: column;
     justify-content: flex-start;
   }
+
   .hero-content {
     padding-top: 1rem;
   }
-  .hero-title {
-    font-size: 1.45rem;
-    min-height: unset;
-    margin-bottom: 1rem;
+
+  .hero-narrative-text {
+    margin-bottom: 1.5rem;
+    max-width: 90vw;
     line-height: 1.25;
   }
+
+  .hero-level-1 {
+    margin-bottom: 1rem;
+  }
+  
+  .hero-level-2 {
+    margin-bottom: 0.8rem;
+  }
+  
+  .hero-level-3 {
+    margin-bottom: 2rem;
+    padding: 0.6rem 0;
+  }
+
   .hero-avatar {
-    width: 4.3rem;
-    height: 4.3rem;
-    margin-bottom: 1.2rem;
+    margin: 1.5rem auto;
   }
-  .hero-subtitle {
-    font-size: 0.97rem;
-    margin-bottom: 1.3rem;
+
+  .avatar-name {
+    font-size: 0.9rem;
+    margin-top: 0.6rem;
   }
+
   .hero-buttons {
     gap: 0.8rem;
     flex-direction: row;
+    margin-top: 1.5rem;
+  }
+
+  .btn {
+    padding: 0.65rem 1.2rem;
+    font-size: 0.9rem;
   }
 }
 
-@media (max-width: 430px) {
-  .hero-title {
-    font-size: 1.5rem;
-}
-.hero-avatar {
-    width: 3.2rem;
-    height: 3.2rem;
+/* Small Mobile (320px-429px) - Réduction maximale pour lisibilité */
+@media (max-width: 429px) {
+  :root {
+    --hero-level-1-size: 2.8rem;
+    --hero-level-2-size: 1.6rem;
+    --hero-level-3-size: 1.4rem;
+    --avatar-transition-size: 3.2rem;
+  }
+
+  .hero-narrative-text {
+    line-height: 1.3;
+    max-width: 95vw;
+  }
+
+  .hero-level-1 {
     margin-bottom: 0.8rem;
-}
-}
-.hero-subtitle {
-    font-size: 0.91rem;
-}
+  }
+  
+  .hero-level-2 {
+    margin-bottom: 0.6rem;
+  }
+  
+  .hero-level-3 {
+    margin-bottom: 1.5rem;
+    padding: 0.4rem 0;
+  }
 
-@media (min-width: 1400px) {
-  .btn-primary, .btn-outline {
-    font-size: 22px;
-    font-weight: 100;
+  .hero-avatar {
+    margin: 1.2rem auto;
+  }
+
+  .avatar-name {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
   }
 }
-@media (max-width: 600px) {
-  .hero-avatar {
-    width: 64px;
-    height: 64px;
+
+/* Desktop (1400px+) - Espacements généreux, tailles maximales */
+@media (min-width: 1400px) {
+  :root {
+    --hero-level-1-size: 5.5rem;
+    --hero-level-2-size: 3.5rem;
+    --hero-level-3-size: 2.8rem;
+    --avatar-transition-size: 5.5rem;
+  }
+
+  .hero-narrative-text {
+    margin-bottom: 3rem;
+    max-width: 1200px;
+  }
+
+  .hero-level-1 {
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-level-2 {
+    margin-bottom: 2rem;
+  }
+
+  .hero-level-3 {
+    margin-bottom: 3rem;
+  }
+
+  .avatar-name {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+  }
+
+  .btn {
+    font-size: 1.1rem;
+    padding: 0.85rem 2rem;
   }
 }
