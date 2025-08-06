@@ -229,12 +229,24 @@
 }
 
 .project-title {
-  white-space: nowrap;
   font-size: 1.25rem;
   font-weight: 500;
   color: #111827;
   margin-bottom: 0.75rem;
   position: relative;
+  flex: 1;
+  min-width: 0; /* Important pour la flexbox */
+  
+  /* Container avec overflow masqué */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  
+  /* Animation SEULEMENT pour les textes qui débordent */
+  &.text-overflowing:hover {
+    animation: revealText 3s ease-in-out infinite;
+    text-overflow: clip;
+  }
   
   /* Effet de soulignement progressif */
   &::after {
@@ -246,6 +258,21 @@
     height: 2px;
     background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
     transition: width 0.3s ease;
+  }
+}
+
+@keyframes revealText {
+  0% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(0);
+  }
+  60% {
+    transform: translateX(-20%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 
@@ -374,7 +401,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  width: 100%;
+  flex-shrink: 0; /* Ne se réduit jamais */
   display: flex;
   align-items: center;
   gap: 10px;
@@ -512,15 +539,15 @@ img.project-image {
 
 
   @media (max-width: 530px) {
-    h3.project-title {
+    .project-title {
       font-size: 16px;
-  }
-  
-  a.project-link {
+    }
+    
+    a.project-link {
       font-size: 15px;
-  }
-  .project-linkexternal {
-    gap: 20px;
-}
-  
+    }
+    
+    .project-linkexternal {
+      gap: 20px;
+    }
   }

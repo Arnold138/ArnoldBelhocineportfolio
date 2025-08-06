@@ -7,6 +7,7 @@ const ProjectsSection = ({ projects }) => {
   const [isVisible, setIsVisible] = useState(false); // pour l'animation d'apparition au scroll
   const [scrollProgress, setScrollProgress] = useState(0); // pour l'effet parchemin
   const sectionRef = useRef(null); // ref pour la section principale
+  const titleRefs = useRef([]); // refs pour les titres
   // Apparition au scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -35,6 +36,28 @@ const ProjectsSection = ({ projects }) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Vérifier si les titres débordent
+  useEffect(() => {
+    const checkTextOverflow = () => {
+      titleRefs.current.forEach((titleRef, index) => {
+        if (titleRef) {
+          const isOverflowing = titleRef.scrollWidth > titleRef.offsetWidth;
+          if (isOverflowing) {
+            titleRef.classList.add('text-overflowing');
+          } else {
+            titleRef.classList.remove('text-overflowing');
+          }
+        }
+      });
+    };
+
+    // Vérifier au chargement et au redimensionnement
+    checkTextOverflow();
+    window.addEventListener('resize', checkTextOverflow);
+    
+    return () => window.removeEventListener('resize', checkTextOverflow);
+  }, [projects, isVisible]);
 
   return (
     <section
@@ -85,7 +108,13 @@ const ProjectsSection = ({ projects }) => {
                 <div className="project-content">
                   {/* Ligne titre + flèche à droite */}
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-                    <h3 className="project-title" style={{ margin: 0 }}>{project.title}</h3>
+                    <h3 
+                      className="project-title" 
+                      style={{ margin: 0 }}
+                      ref={(el) => titleRefs.current[index] = el}
+                    >
+                      {project.title}
+                    </h3>
                     <button
                       className="dropdown-toggle"
                       onClick={() => setOpenIndex(openIndex === index ? null : index)}
@@ -147,15 +176,17 @@ const ProjectsSection = ({ projects }) => {
                     ))}
                   </div>
                      <div className='project-linkexternal'>
-                        {/* Lien vers le projet (toujours présent) */}
-                        <a
-                          href={project.link}
-                          className="project-link"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Voir le projet <ExternalLink className="project-link-icon" />
-                        </a>
+                        {/* Lien vers le projet : uniquement si link existe */}
+                        {project.link && (
+                          <a
+                            href={project.link}
+                            className="project-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Voir le projet <ExternalLink className="project-link-icon" />
+                          </a>
+                        )}
                         
                         {/* Lien vers GitHub : uniquement si linkGitHub existe */}
                         {project.linkGitHub && (
