@@ -4,6 +4,11 @@
   padding: 5rem 0;
   position: relative;
   overflow: hidden;
+  
+  // Désactiver les effets sur mobile
+  @media (max-width: 768px) {
+    overflow: visible;
+  }
 }
 
 /* Effet de parchemin qui se déroule */
@@ -27,6 +32,11 @@
     calc(100% * var(--scroll-progress)) 100%,
     0 100%
   );
+  
+  // Désactiver l'effet parchemin sur mobile
+  @media (max-width: 768px) {
+    display: none;
+  }
   
   /* Texture de parchemin */
   &::before {
@@ -187,11 +197,23 @@
 .project-card-visible {
   transform: translateY(0) rotateX(0deg);
   opacity: 1;
+  
+  // Sur mobile, toujours visible sans animation
+  @media (max-width: 768px) {
+    transform: translateY(0) rotateX(0deg) !important;
+    opacity: 1 !important;
+  }
 }
 
 .project-card-hidden {
   transform: translateY(4rem) rotateX(15deg);
   opacity: 0;
+  
+  // Sur mobile, forcer visible
+  @media (max-width: 768px) {
+    transform: translateY(0) rotateX(0deg) !important;
+    opacity: 1 !important;
+  }
 }
 
 /* Image du projet */
@@ -388,11 +410,24 @@
   opacity: 0;
   transform: translateY(50px);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  
+  // Désactiver les animations de fade sur mobile
+  @media (max-width: 768px) {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: none !important;
+  }
 }
 
 .projects-visible {
   opacity: 1;
   transform: translateY(0);
+  
+  // S'assurer que c'est toujours visible sur mobile
+  @media (max-width: 768px) {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
 }
 
 
@@ -459,6 +494,13 @@
   // CRUCIAL : Forcer chaque card à être indépendante
   align-self: start;
   height: fit-content; // Au lieu de auto
+  
+  // Désactiver les animations sur mobile
+  @media (max-width: 768px) {
+    transform: translateY(0) rotateX(0deg) !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
   
   /* Effet de flottement */
   &::before {
