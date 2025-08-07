@@ -34,10 +34,10 @@ const NavBar = ({ onNav }) => {
             setActiveSection(
               section === 'home'
                 ? 'accueil'
-                : section === 'about'
-                ? 'about'
                 : section === 'projects'
                 ? 'projets'
+                : section === 'about'
+                ? 'about'
                 : 'contact'
             );
             break;
@@ -98,8 +98,8 @@ const NavBar = ({ onNav }) => {
 
   const navigationItems = [
     { id: 'accueil', label: 'Accueil', target: 'home' },
-    { id: 'about', label: 'À Propos', target: 'about' },
     { id: 'projets', label: 'Projets', target: 'projects' },
+    { id: 'about', label: 'À Propos', target: 'about' },
     { id: 'contact', label: 'Contact', target: 'contact' }
   ];
   
