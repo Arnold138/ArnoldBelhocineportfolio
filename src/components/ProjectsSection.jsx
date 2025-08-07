@@ -42,7 +42,7 @@ const ProjectsSection = ({ projects }) => {
   // Vérifier si les titres débordent
   useEffect(() => {
     const checkTextOverflow = () => {
-      titleRefs.current.forEach((titleRef, index) => {
+      titleRefs.current.forEach((titleRef) => {
         if (titleRef) {
           const isOverflowing = titleRef.scrollWidth > titleRef.offsetWidth;
           if (isOverflowing) {
@@ -61,16 +61,24 @@ const ProjectsSection = ({ projects }) => {
     return () => window.removeEventListener('resize', checkTextOverflow);
   }, [projects, isVisible]);
 
-  // Calculer les hauteurs des dropdowns
+  // Calculer les hauteurs des dropdowns avec vérification
   useEffect(() => {
-    const heights = {};
-    contentRefs.current.forEach((ref, index) => {
-      if (ref) {
-        heights[index] = ref.scrollHeight;
+    const calculateHeights = () => {
+      const heights = {};
+      contentRefs.current.forEach((ref, index) => {
+        if (ref && ref.scrollHeight > 0) {
+          heights[index] = Math.max(ref.scrollHeight + 20, 200); // Minimum 200px
+        }
+      });
+      if (Object.keys(heights).length > 0) {
+        setDropdownHeights(heights);
       }
-    });
-    setDropdownHeights(heights);
-  }, [projects]);
+    };
+    
+    // Attendre que les éléments soient rendus
+    const timer = setTimeout(calculateHeights, 100);
+    return () => clearTimeout(timer);
+  }, [projects, isVisible]);
 
   return (
     <section
@@ -168,8 +176,11 @@ const ProjectsSection = ({ projects }) => {
                   <div
                     className={`dropdown-content ${openIndex === index ? "open" : ""}`}
                     style={{
-                      maxHeight: openIndex === index ? `${dropdownHeights[index] || 900}px` : '0px',
-                      padding: openIndex === index ? '1rem 0' : '0'
+                      maxHeight: openIndex === index ? 
+                        (dropdownHeights[index] ? `${dropdownHeights[index]}px` : 'auto') : 
+                        '0px',
+                      padding: openIndex === index ? '1rem 0' : '0',
+                      transition: 'max-height 0.4s ease, padding 0.3s ease'
                     }}
                   >
                     <div
