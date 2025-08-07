@@ -449,12 +449,14 @@
   .contact-section {
     padding: 3rem 0;
   }
-  .contact-info .info-items {
+  
+  .contact-info.info-visible {
     display: none;
   }
-  .contact-info.info-visible {
-
-    text-align: center;
+  
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .contact-header {

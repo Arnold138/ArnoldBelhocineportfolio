@@ -6,8 +6,10 @@ const ProjectsSection = ({ projects }) => {
   const [openIndex, setOpenIndex] = useState(null); // index de la card ouverte
   const [isVisible, setIsVisible] = useState(false); // pour l'animation d'apparition au scroll
   const [scrollProgress, setScrollProgress] = useState(0); // pour l'effet parchemin
+  const [dropdownHeights, setDropdownHeights] = useState({}); // hauteurs des dropdowns
   const sectionRef = useRef(null); // ref pour la section principale
   const titleRefs = useRef([]); // refs pour les titres
+  const contentRefs = useRef([]); // refs pour mesurer la hauteur du contenu
   // Apparition au scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -58,6 +60,17 @@ const ProjectsSection = ({ projects }) => {
     
     return () => window.removeEventListener('resize', checkTextOverflow);
   }, [projects, isVisible]);
+
+  // Calculer les hauteurs des dropdowns
+  useEffect(() => {
+    const heights = {};
+    contentRefs.current.forEach((ref, index) => {
+      if (ref) {
+        heights[index] = ref.scrollHeight;
+      }
+    });
+    setDropdownHeights(heights);
+  }, [projects]);
 
   return (
     <section
@@ -154,14 +167,13 @@ const ProjectsSection = ({ projects }) => {
                   {/* Description déroulante avec ID unique */}
                   <div
                     className={`dropdown-content ${openIndex === index ? "open" : ""}`}
-                    data-project-id={project.id}
                     style={{
-                      // Force l'isolation de chaque dropdown
-                      position: 'relative',
-                      zIndex: openIndex === index ? 1 : 0
+                      maxHeight: openIndex === index ? `${dropdownHeights[index] || 900}px` : '0px',
+                      padding: openIndex === index ? '1rem 0' : '0'
                     }}
                   >
                     <div
+                      ref={(el) => contentRefs.current[index] = el}
                       style={{ margin: 0, padding: 0 }}
                       dangerouslySetInnerHTML={{ __html: project.fullDescription }}
                     />

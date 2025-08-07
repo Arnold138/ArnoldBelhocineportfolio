@@ -491,24 +491,16 @@
   min-height: unset;
 }
 
-/* Dropdown content - AMÉLIORATION */
+/* Dropdown content - HAUTEUR AUTOMATIQUE */
 .dropdown-content {
-  max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s cubic-bezier(.5,1.8,.4,.8), padding 0.25s;
-  padding: 0 0;
+  transition: max-height 0.4s ease, padding 0.3s ease;
   margin-bottom: 15px;
   color: #333;
   
-  // Assurer l'isolation complète
-  position: relative;
-  z-index: 1;
-  
-  &.open {
-    max-height: 1200px;
-    padding: 1rem 0;
-    // Empêcher l'influence sur les autres cards
-    contain: layout style;
+  // Correction mobile
+  @media (max-width: 768px) {
+    transition: max-height 0.4s ease, padding 0.3s ease;
   }
 }
 .project-linkexternal { 
