@@ -2,6 +2,7 @@ import React from 'react'
 import NavBarr from './components/NavBarr'
 import HeroSection from './components/HeroSection'
 import ProjectsSection from './components/ProjectsSection'
+import TestimonialSection from './components/TestimonialSection'
 import ContactSection from './components/ContactSection'
 import AboutSection from './components/AboutSection'
 import Footer from './components/Footer.jsx'
@@ -9,7 +10,6 @@ import kasaImg from './assets/images/kasalogo.png'
 import grimoireImg from '../src/assets/images/victorhugo.jpg';
 import ArcanaGames from '../src/assets/images/ArcanaGame_Logo_detourer.png';
 import MonGif from '../src/assets/images/gitflamme.gif';
-import { Link } from 'lucide-react'
 
 
 
@@ -64,6 +64,7 @@ export default function App() {
       <main style={{ marginTop: '0' }}>
         <HeroSection onNav={scrollTo} />
         <ProjectsSection projects={exampleProjects} />
+        <TestimonialSection />
         <AboutSection />
         <ContactSection />
       </main>

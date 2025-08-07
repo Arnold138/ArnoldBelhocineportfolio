@@ -1,0 +1,241 @@
+/* Section témoignage */
+.testimonial-section {
+  padding: 4rem 0;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 58, 138, 0.05) 0%,
+    rgba(59, 130, 246, 0.08) 50%,
+    rgba(30, 58, 138, 0.05) 100%
+  );
+  position: relative;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(59, 130, 246, 0.3),
+      transparent
+    );
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(59, 130, 246, 0.3),
+      transparent
+    );
+  }
+}
+
+.testimonial-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.testimonial-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.testimonial-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.testimonial-quote {
+  position: relative;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 3rem 2.5rem;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  transform: scale(0.95);
+  transition: transform 0.6s ease 0.2s;
+
+  .testimonial-visible & {
+    transform: scale(1);
+  }
+
+  &::before {
+    content: '"';
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    font-size: 4rem;
+    color: rgba(30, 58, 138, 0.2);
+    font-family: serif;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  &::after {
+    content: '"';
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+    font-size: 4rem;
+    color: rgba(30, 58, 138, 0.2);
+    font-family: serif;
+    font-weight: bold;
+    line-height: 1;
+  }
+}
+
+.testimonial-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: rgba(30, 58, 138, 0.1);
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.6s ease 0.4s;
+
+  .testimonial-visible & {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+}
+
+blockquote {
+  font-size: 1.375rem;
+  line-height: 1.6;
+  color: #1f2937;
+  font-weight: 300;
+  margin: 0 0 2rem 0;
+  font-style: italic;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.6s ease 0.6s;
+
+  .testimonial-visible & {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+cite {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 500;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.6s ease 0.8s;
+
+  .testimonial-visible & {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  &::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: #d1d5db;
+  }
+
+  &::after {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: #d1d5db;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .testimonial-section {
+    padding: 3rem 0;
+  }
+
+  .testimonial-quote {
+    padding: 2rem 1.5rem;
+    border-radius: 1rem;
+
+    &::before,
+    &::after {
+      font-size: 2.5rem;
+    }
+
+    &::before {
+      top: 0.5rem;
+      left: 1rem;
+    }
+
+    &::after {
+      bottom: 0.5rem;
+      right: 1rem;
+    }
+  }
+
+  blockquote {
+    font-size: 1.125rem;
+  }
+
+  .testimonial-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+
+    img {
+      width: 26px;
+      height: 26px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-quote {
+    padding: 1.5rem 1rem;
+  }
+
+  blockquote {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  cite {
+    font-size: 0.875rem;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    &::before,
+    &::after {
+      width: 20px;
+    }
+  }
+}

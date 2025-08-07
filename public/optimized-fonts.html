@@ -1,0 +1,72 @@
+<!-- Optimisation Montserrat pour index.html -->
+
+<!-- 1. Preconnect pour Google Fonts (DNS + handshake anticipés) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- 2. Preload de la police critique (weight 300, 700) -->
+<link 
+  rel="preload" 
+  as="style" 
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+>
+
+<!-- 3. Chargement asynchrone avec font-display swap -->
+<link 
+  rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" 
+  media="print" 
+  onload="this.media='all'"
+>
+
+<!-- 4. Fallback system fonts en CSS critique -->
+<style>
+  /* Fallback avant chargement Montserrat */
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    font-display: swap;
+  }
+  
+  /* Montserrat appliquée après chargement */
+  .fonts-loaded body {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  /* Placeholder dimensions pour éviter FOUT/FOIT */
+  .hero-level-1, .hero-level-2, .hero-level-3 {
+    font-kerning: auto;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+</style>
+
+<!-- 5. Script de détection de chargement font -->
+<script>
+  // Détection chargement Montserrat pour éviter FOUT
+  if ('fonts' in document) {
+    Promise.all([
+      document.fonts.load('300 1em Montserrat'),
+      document.fonts.load('700 1em Montserrat')
+    ]).then(() => {
+      document.documentElement.classList.add('fonts-loaded')
+      console.log('✅ Montserrat chargée')
+    }).catch(() => {
+      console.warn('⚠️ Fallback fonts utilisées')
+      document.documentElement.classList.add('fonts-loaded')
+    })
+  } else {
+    // Fallback pour navigateurs anciens
+    setTimeout(() => {
+      document.documentElement.classList.add('fonts-loaded')
+    }, 1000)
+  }
+</script>
+
+<!-- 6. Noscript fallback -->
+<noscript>
+  <link 
+    rel="stylesheet" 
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+  >
+</noscript>

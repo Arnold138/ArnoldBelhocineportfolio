@@ -1,108 +1,165 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { User, MapPin, Code, Shield, Download, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { MapPin, Download } from 'lucide-react';
 import '../styles/aboutsection.scss';
 import '../../public/CV_Arnold_Belhocine.pdf';
+import gendarmerieIcon from '../assets/images/logo-gendarmerie.svg';
+import securityIcon from '../assets/images/logo-securite.webp';
+import developerIcon from '../assets/images/logo-developpeur.webp';
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [selectedExperience, setSelectedExperience] = useState(null);
   const sectionRef = useRef(null);
 
   useEffect(() => {
+    // Optimisation: éviter de créer l'observer si déjà visible
+    if (isVisible) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+          // Déconnecter après activation pour économiser les ressources
+          observer.disconnect();
+        }
       },
       {
-        threshold: 0.05,
-        rootMargin: '0px 0px -100px 0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+      observer.disconnect();
+    };
+  }, [isVisible]);
 
-  const experiences = [
+  // Mémoriser les données statiques
+  const experiences = useMemo(() => [
     {
-      icon: Code,
+      id: 1,
+      icon: 'developer',
       title: "Développeur Full Stack",
       subtitle: "Une passion en progression constante",
       description: "Formation intensive en développement web avec une spécialisation React et Node.js. Motivation forte et collaboration active avec un entrepreneur sur des projets concrets full stack.",
-      period: "Présent"
+      period: "2024 - Présent",
+      date: "2024",
+      color: "#3b82f6",
+      gradient: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+      details: {
+        duration: "10 mois",
+        location: "Valence & Remote",
+        achievements: [
+          "10 projets développés de A à Z",
+          "Collaboration directe avec entrepreneur sur Arcana Games",
+          "Utilisation quotidienne React + Node.js + MongoDB",
+          "Interfaces modernes et réactives",
+        ],
+        technologies: ["React", "Node.js", "Express", "MongoDB", "JavaScript ES6+", "CSS", "Git", "Postman"],
+        projects: ["Arcana Games", "Portfolio Moderne", "API RESTful", "Interfaces Animées"]
+      }
     },
     {
-      icon: Shield,
+      id: 2,
+      icon: 'gendarmerie',
       title: "P.S.I.G Gendarmerie Nationale",
       subtitle: "Intervention en milieu sensible et à haut risque",
-      description: "Rigueur, discipline et esprit d'équipe acquis au service de la sécurité publique. Missions de protection, de surveillance et d’intervention rapide dans des contextes critiques.",
-      period: "Missions & Interventions"
+      description: "Rigueur, discipline et esprit d'équipe acquis au service de la sécurité publique. Missions de protection, de surveillance et d'intervention rapide dans des contextes critiques.",
+      period: "Missions Intervention",
+      date: "2022-2023",
+      color: "#1e3a8a",
+      gradient: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
+      details: {
+        duration: "18 mois",
+        location: "Région Normandie",
+        achievements: [
+          "Formation spécialisée intervention rapide",
+          "Missions haute sécurité accomplies avec succès",
+          "Leadership d'équipe en situation critique",
+          "Reconnaissance officielle pour détermination"
+        ],
+        skills: ["Gestion de crise", "Travail en équipe", "Adaptabilité", "Résistance au stress", "Communication radio", "Intervention tactique"],
+        values: ["Rigueur", "Discipline", "Respect", "Engagement", "Solidarité"]
+      }
     },
     {
-      icon: User,
-      title: "Agent d’Intervention – Région Lyonnaise",
+      id: 3,
+      icon: 'security',
+      title: "Agent d'Intervention – Région Lyonnaise",
       subtitle: "Réactivité et maîtrise opérationnelle sur le terrain",
-      description: "Interventions rapides sur alarmes, levées de doute, gestion d’effractions et de dégradations. Protection des sites, sécurisation des accès et coordination avec les forces de l’ordre. Expérience confirmée dans la gestion d’incidents en temps réel sur des zones sensibles de la région lyonnaise.",
-      period: "Opérations & Terrain"
+      description: "Interventions rapides sur alarmes, levées de doute, gestion d'effractions et de dégradations. Protection des sites, sécurisation des accès et coordination avec les forces de l'ordre.",
+      period: "Terrain & Opérations",
+      date: "2021-2022",
+      color: "#3b82f6",
+      gradient: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+      details: {
+        duration: "14 mois",
+        location: "Métropole de Lyon",
+        achievements: [
+          "200+ interventions réussies",
+          "Coordination efficace avec forces de l'ordre",
+          "Gestion autonome de secteurs sensibles",
+          "Formation nouveaux agents"
+        ],
+        responsibilities: ["Surveillance active", "Levée de doute", "Rédaction rapports", "Contact clientèle", "Maintenance équipements"],
+        zones: ["Sites industriels", "Centres commerciaux", "Résidences", "Bureaux d'entreprise"]
+      }
     }
-  ];
+  ], []);
 
-  const skills = [
+  const skillsData = useMemo(() => [
     {
       category: "Frontend",
-      technologies: [
-        "React",
-        "JavaScript",
-        "Vite.js",
-        "CSS / SCSS / SASS",
-        "HTML5",
-        "Responsive Design",
-        "React Router",
-        "Animations CSS / Keyframes",
-        "Animations de particules",
-        "Framer Motion",
-        "Single Page Application (SPA)"
-      ],
-      color: "#007aff"
+      color: "#007aff",
+      gradient: "linear-gradient(135deg, #007aff 0%, #5856d6 100%)",
+      icon: "💻",
+      mainTechs: ["React", "JavaScript", "CSS3/SCSS", "HTML5", "Responsive Design"],
+      allTechs: ["React", "JavaScript", "Vite.js", "CSS/SCSS", "HTML5", "Responsive Design", "React Router", "Animations CSS/Keyframes", "Framer Motion", "SPA"],
+      metrics: {
+        projects: 10,
+        animations: "15+"
+      },
+      achievement: "Interfaces modernes avec animations fluides",
+      description: "Création d'expériences utilisateur exceptionnelles avec des performances optimales"
     },
     {
-      category: "Backend",
-      technologies: [
-        "Node.js",
-        "Express",
-        "API RESTful",
-        "MongoDB / Mongoose",
-        "SQL",
-        "JWT Authentication",
-        "bcrypt",
-        "Multer",
-        "Sharp",
-        "Gestion des middlewares",
-        "Architecture MVC",
-        "Green Code"
-      ],
-      color: "#34c759"
+      category: "Backend", 
+      color: "#34c759",
+      gradient: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+      icon: "⚙️",
+      mainTechs: ["Node.js", "Express", "MongoDB", "API RESTful", "JWT Auth"],
+      allTechs: ["Node.js", "Express", "API RESTful", "MongoDB/Mongoose", "SQL", "Middlewares", "bcrypt", "Multer", "Sharp", "JWT", "Architecture MVC"],
+      metrics: {
+        security: "JWT + bcrypt",
+        optimization: "Green Code"
+      },
+      achievement: "Architectures serveur robustes et sécurisées",
+      description: "Développement d'APIs performantes avec sécurité renforcée"
     },
     {
-      category: "Outils",
-      technologies: [
-        "Git / GitHub",
-        "VS Code",
-        "Figma",
-        "Postman",
-        "Gmail API",
-        "JSON",
-        "Netlify",
-        "npm",
-        "Calendrier et réservation sur mesure",
-        "Gestion de projet full stack",
-        "Testing API avec Postman"
-      ],
-      color: "#ff9500"
+      category: "DevOps & Outils",
+      color: "#ff9500", 
+      gradient: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+      icon: "🛠️",
+      mainTechs: ["Git/GitHub", "Vite", "Postman", "VS Code", "Figma"],
+      allTechs: ["Git/GitHub", "VS Code", "Figma", "Postman", "Gmail API", "JSON", "Netlify", "npm", "Testing API", "Workflow Automation"],
+      metrics: {
+        commits: "500+",
+        deployment: "Auto",
+        testing: "API",
+        workflow: "CI/CD"
+      },
+      achievement: "Processus de développement optimisé",
+      description: "Maîtrise complète des outils modernes de développement"
     }
-  ];
+  ], []);
+
   
 
   return (
@@ -118,9 +175,6 @@ const AboutSection = () => {
         <div className={`about-header ${isVisible ? 'header-visible' : ''}`}>
           <h2 className="about-title">À propos de moi</h2>
           <div className="about-divider" />
-          <p className="about-subtitle">
-          De la rigueur du terrain à la précision du code, mon parcours mêle exigence opérationnelle et passion pour le développement web.
-          </p>
         </div>
 
         <div className="about-content">
@@ -153,88 +207,222 @@ const AboutSection = () => {
               <div className="profile-actions">
                 <a 
                   href={`${import.meta.env.BASE_URL}CV_Arnold_Belhocine.pdf`}
-                  className="cv-button"
+                  className="cv-button premium-bounce"
                   download
                 >
-                  <Download size={18} />
-                  <span>Télécharger mon CV</span>
+                  <div className="button-content">
+                    <Download size={18} className="download-icon" />
+                    <span>Télécharger mon CV</span>
+                  </div>
                   <div className="button-background" />
+                  <div className="button-glow" />
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Parcours professionnel */}
+          {/* Timeline Interactive Premium */}
           <div className={`about-journey ${isVisible ? 'journey-visible' : ''}`}>
-            <h3 className="journey-title">Mon Parcours</h3>
+            <div className="journey-header">
+              <h3 className="journey-title">Mon Parcours</h3>
+              <div className="title-divider"></div>
+              <p className="journey-subtitle">
+                Une évolution guidée par la passion, l'apprentissage continu et l'excellence opérationnelle
+              </p>
+            </div>
             
-            <div className="timeline">
+            <div className="timeline-premium">
+              <div className="timeline-line" />
+              
               {experiences.map((exp, index) => (
                 <div 
-                  key={index}
-                  className="timeline-item"
-                  style={{ transitionDelay: `${index * 150 + 400}ms` }}
+                  key={exp.id}
+                  className={`timeline-item-premium ${selectedExperience === exp.id ? 'active' : ''}`}
+                  style={{ 
+                    transitionDelay: `${index * 200 + 400}ms`,
+                    '--experience-color': exp.color,
+                    '--experience-gradient': exp.gradient
+                  }}
+                  onClick={() => setSelectedExperience(selectedExperience === exp.id ? null : exp.id)}
+                  onMouseEnter={() => {}}
                 >
-                  <div className="timeline-icon">
-                    <exp.icon size={20} />
+                  {/* Date badge */}
+                  <div className="timeline-date">
+                    {exp.date}
                   </div>
                   
-                  <div className="timeline-content">
-                    <div className="timeline-header">
-                      <h4 className="timeline-title">{exp.title}</h4>
-                      <span className="timeline-period">{exp.period}</span>
+                  {/* Icon avec glow effect */}
+                  <div className="timeline-icon-premium">
+                    <div className="icon-glow" />
+                    <div className="icon-container">
+                      {exp.icon === 'gendarmerie' ? (
+                        <img src={gendarmerieIcon} alt="Gendarmerie" className="timeline-custom-icon" />
+                      ) : exp.icon === 'security' ? (
+                        <img src={securityIcon} alt="Sécurité" className="timeline-custom-icon" />
+                      ) : exp.icon === 'developer' ? (
+                        <img src={developerIcon} alt="Développeur" className="timeline-custom-icon" />
+                      ) : (
+                        <exp.icon size={24} />
+                      )}
                     </div>
-                    <p className="timeline-subtitle">{exp.subtitle}</p>
-                    <p className="timeline-description">{exp.description}</p>
                   </div>
                   
-                  <div className="timeline-connector" />
+                  {/* Content card */}
+                  <div className="timeline-card">
+                    <div className="card-header">
+                      <h4 className="timeline-title-premium">{exp.title}</h4>
+                      <span className="timeline-period-premium">{exp.period}</span>
+                    </div>
+                    <p className="timeline-subtitle-premium">{exp.subtitle}</p>
+                    <p className="timeline-description-premium">{exp.description}</p>
+                    
+                    <button className="details-toggle">
+                      <span>Voir les détails</span>
+                      <div className="toggle-icon">
+                        {selectedExperience === exp.id ? '−' : '+'}
+                      </div>
+                    </button>
+                  </div>
+                  
+                  {/* Expanded details */}
+                  {selectedExperience === exp.id && (
+                    <div className="timeline-details">
+                      <div className="details-grid">
+                        <div className="detail-section">
+                          <h5>Informations</h5>
+                          <div className="detail-item">
+                            <span className="detail-label">Durée</span>
+                            <span className="detail-value">{exp.details.duration}</span>
+                          </div>
+                          <div className="detail-item">
+                            <span className="detail-label">Lieu</span>
+                            <span className="detail-value">{exp.details.location}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="detail-section">
+                          <h5>Réalisations</h5>
+                          <ul className="achievements-list">
+                            {exp.details.achievements.map((achievement, i) => (
+                              <li key={i} style={{ animationDelay: `${i * 0.1}s` }}>
+                                {achievement}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        
+                        {exp.details.technologies && (
+                          <div className="detail-section">
+                            <h5>Technologies</h5>
+                            <div className="tech-pills">
+                              {exp.details.technologies.map((tech, i) => (
+                                <span 
+                                  key={i} 
+                                  className="tech-pill"
+                                  style={{ animationDelay: `${i * 0.05}s` }}
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        {exp.details.skills && (
+                          <div className="detail-section">
+                            <h5>Compétences</h5>
+                            <div className="skills-pills">
+                              {exp.details.skills.map((skill, i) => (
+                                <span 
+                                  key={i} 
+                                  className="skill-pill"
+                                  style={{ animationDelay: `${i * 0.05}s` }}
+                                >
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Compétences techniques */}
-        <div className={`about-skills ${isVisible ? 'skills-visible' : ''}`}>
-          <h3 className="skills-title">Compétences Techniques</h3>
-          <p className="skills-subtitle">
-           Ces technologies sont mes leviers pour transformer une idée en une interface rapide, propre et fonctionnelle.
-          </p>
-          
-          <div className="skills-grid">
-            {skills.map((skillSet, index) => (
+        {/* Compétences techniques - Premium */}
+        <div className={`skills-premium ${isVisible ? 'skills-visible' : ''}`}>
+          <div className="skills-header">
+            <h3 className="skills-title">Compétence Technique</h3>
+            <div className="title-divider"></div>
+            <p className="skills-subtitle">
+              Une maîtrise complète de l'écosystème web moderne, validée par des projets concrets et des résultats mesurables.
+            </p>
+          </div>
+
+          {/* Compétences principales avec barres circulaires */}
+          <div className="skills-main">
+            {skillsData.map((skill, index) => (
               <div 
                 key={index}
-                className="skill-category"
-                style={{ transitionDelay: `${index * 100 + 300}ms` }}
+                className="skill-card"
+                style={{ transitionDelay: `${index * 150}ms` }}
               >
-                <div className="skill-header">
-                  <div 
-                    className="skill-indicator"
-                    style={{ backgroundColor: skillSet.color }}
-                  />
-                  <h4 className="skill-category-name">{skillSet.category}</h4>
+                <div className="skill-visual">
+                  <div className="circular-progress">
+                    <div className="skill-icon">{skill.icon}</div>
+                  </div>
                 </div>
                 
-                <div className="skill-tags">
-                  {skillSet.technologies.map((tech, techIndex) => (
-                    <span 
-                      key={techIndex}
-                      className="skill-tag"
-                      style={{ 
-                        borderColor: skillSet.color + '20',
-                        color: skillSet.color 
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                <div className="skill-info">
+                  <h4 className="skill-category">{skill.category}</h4>
+                  <div className="skill-techs">
+                    {skill.mainTechs.map((tech, i) => (
+                      <span key={i} className="tech-badge">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <p className="skill-description">{skill.description}</p>
+                  <p className="skill-achievement">{skill.achievement}</p>
+                  
+                  {/* Toutes les technologies avec animation */}
+                  <div className="skill-all-techs">
+                    <div className="techs-scroll">
+                      {skill.allTechs.map((tech, i) => (
+                        <span 
+                          key={i} 
+                          className="tech-chip"
+                          style={{ 
+                            animationDelay: `${i * 0.1}s`,
+                            borderColor: skill.color + '30',
+                            color: skill.color
+                          }}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="skill-metrics">
+                    {Object.entries(skill.metrics).map(([key, value], i) => (
+                      <div key={i} className="metric" style={{ animationDelay: `${i * 0.2}s` }}>
+                        <span className="metric-value">{value}</span>
+                        <span className="metric-label">{key}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-      </div>
+
+        </div>
     </div>
   </section>
   );

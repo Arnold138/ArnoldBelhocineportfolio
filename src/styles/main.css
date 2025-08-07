@@ -102,6 +102,10 @@ body[data-theme="dark"] {
   opacity: 0.9;
   margin-bottom: 1.5rem;
   letter-spacing: -0.01em;
+  /* Dimensions fixes pour LCP et éviter CLS */
+  width: 100%;
+  min-height: calc(var(--hero-level-2-size) * 1.2);
+  contain: layout style;
 }
 
 /* Niveau 3 - Emotional Connection */
