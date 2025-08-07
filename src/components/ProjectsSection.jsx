@@ -6,10 +6,8 @@ const ProjectsSection = ({ projects }) => {
   const [openIndex, setOpenIndex] = useState(null); // index de la card ouverte
   const [isVisible, setIsVisible] = useState(false); // pour l'animation d'apparition au scroll
   const [scrollProgress, setScrollProgress] = useState(0); // pour l'effet parchemin
-  const [dropdownHeights, setDropdownHeights] = useState({}); // hauteurs des dropdowns
   const sectionRef = useRef(null); // ref pour la section principale
   const titleRefs = useRef([]); // refs pour les titres
-  const contentRefs = useRef([]); // refs pour mesurer la hauteur du contenu
   // Apparition au scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -61,24 +59,6 @@ const ProjectsSection = ({ projects }) => {
     return () => window.removeEventListener('resize', checkTextOverflow);
   }, [projects, isVisible]);
 
-  // Calculer les hauteurs des dropdowns avec vérification
-  useEffect(() => {
-    const calculateHeights = () => {
-      const heights = {};
-      contentRefs.current.forEach((ref, index) => {
-        if (ref && ref.scrollHeight > 0) {
-          heights[index] = Math.max(ref.scrollHeight + 20, 200); // Minimum 200px
-        }
-      });
-      if (Object.keys(heights).length > 0) {
-        setDropdownHeights(heights);
-      }
-    };
-    
-    // Attendre que les éléments soient rendus
-    const timer = setTimeout(calculateHeights, 100);
-    return () => clearTimeout(timer);
-  }, [projects, isVisible]);
 
   return (
     <section
@@ -176,15 +156,11 @@ const ProjectsSection = ({ projects }) => {
                   <div
                     className={`dropdown-content ${openIndex === index ? "open" : ""}`}
                     style={{
-                      maxHeight: openIndex === index ? 
-                        (dropdownHeights[index] ? `${dropdownHeights[index]}px` : 'auto') : 
-                        '0px',
-                      padding: openIndex === index ? '1rem 0' : '0',
-                      transition: 'max-height 0.4s ease, padding 0.3s ease'
+                      maxHeight: openIndex === index ? '1000px' : '0px',
+                      padding: openIndex === index ? '1rem 0' : '0'
                     }}
                   >
                     <div
-                      ref={(el) => contentRefs.current[index] = el}
                       style={{ margin: 0, padding: 0 }}
                       dangerouslySetInnerHTML={{ __html: project.fullDescription }}
                     />

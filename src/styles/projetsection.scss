@@ -448,7 +448,7 @@
 .project-card {
   background: #ffffff;
   border-radius: 1rem;
-  overflow: visible; // CHANGE : permet au dropdown de s'afficher
+  overflow: hidden; // RETOUR à hidden pour le layout
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateY(4rem) rotateX(15deg);
@@ -491,20 +491,15 @@
   min-height: unset;
 }
 
-/* Dropdown content - HAUTEUR AUTOMATIQUE */
+/* Dropdown content - SIMPLE ET FONCTIONNEL */
 .dropdown-content {
   overflow: hidden;
-  transition: max-height 0.4s ease, padding 0.3s ease;
+  transition: max-height 0.3s ease;
   margin-bottom: 15px;
   color: #333;
   
-  // Correction mobile spécifique
-  @media (max-width: 768px) {
-    transition: max-height 0.5s ease, padding 0.4s ease;
-    // Forcer l'overflow visible sur mobile pour éviter les bugs
-    &.open {
-      overflow: visible;
-    }
+  &.open {
+    overflow-y: auto; // Permet scroll si contenu trop long
   }
 }
 .project-linkexternal { 
@@ -547,13 +542,10 @@ img.project-image {
       gap: 20px;
     }
     
-    // Fix mobile spécifique pour éviter les bugs d'affichage
-    .project-card {
-      overflow: visible !important; // Force overflow visible sur mobile
-      border-radius: 1rem; // Maintenir l'arrondi mais permettre débordement
-      
-      .project-image-container {
-        border-radius: 1rem 1rem 0 0; // Arrondi seulement en haut
-      }
+    // S'assurer que le dropdown-toggle reste visible
+    .dropdown-toggle {
+      flex-shrink: 0 !important;
+      min-width: 34px !important;
+      min-height: 34px !important;
     }
   }
