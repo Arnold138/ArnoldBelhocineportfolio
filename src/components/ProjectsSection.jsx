@@ -8,13 +8,13 @@ const ProjectsSection = ({ projects }) => {
   // const [scrollProgress, setScrollProgress] = useState(0); // DÉSACTIVÉ - Plus de barre latérale
   const sectionRef = useRef(null); // ref pour la section principale
   const titleRefs = useRef([]); // refs pour les titres
-  // Apparition au scroll
+  // Apparition au scroll - titre apparaît dès le début de la section
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
       {
-        threshold: 0.2,
-        rootMargin: '0px 0px -100px 0px'
+        threshold: 0.05,
+        rootMargin: '100px 0px -50px 0px'
       }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
@@ -95,7 +95,7 @@ const ProjectsSection = ({ projects }) => {
                 key={project.id}
                 className={`project-card ${isVisible ? 'project-card-visible' : 'project-card-hidden'}`}
                 style={{
-                  transitionDelay: `${index * 150}ms`,
+                  transitionDelay: `${600 + (index * 150)}ms`, // 600ms de délai pour laisser le titre apparaître d'abord
                   '--card-index': index
                 }}
               >
