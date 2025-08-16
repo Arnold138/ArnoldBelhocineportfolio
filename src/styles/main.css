@@ -618,7 +618,10 @@ body {
   .btn {
     padding: 0.6rem 1rem;
     font-size: 0.85rem;
-  }
+  } 
+  .toggle-container.dark {
+    width: 3rem;
+}
 }
 
 /* Desktop (1400px+) - Espacements généreux, tailles maximales */
