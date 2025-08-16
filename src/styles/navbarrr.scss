@@ -324,62 +324,56 @@
   }
 }
 
-// Indicateur de scroll - DÉSACTIVÉ COMPLÈTEMENT
+// Indicateur de scroll - RÉACTIVÉ
 .scroll-indicator {
-  /* DÉSACTIVÉ - Plus de barre de progression qui apparaît */
-  display: none !important;
-  
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 1px;
+  height: 2px;
   background: rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  
+  // Dark mode
+  [data-theme="dark"] & {
+    background: rgba(255, 255, 255, 0.1);
+  }
 
   .scroll-progress {
-    display: none !important;
     height: 100%;
     background: linear-gradient(90deg, #007aff, #5856d6);
     transform-origin: left center;
     transition: transform 0.1s ease-out;
+    transform: scaleX(0);
+    
+    // Dark mode
+    [data-theme="dark"] & {
+      background: linear-gradient(90deg, #0088ff, #692fff, #c1498a);
+    }
   }
 }
 
 // Version mobile responsive - Navigation compacte  
 @media (max-width: 768px) {
   .navbar-logo {
-    .logo-text {
-      font-size: 12px;
-    }
-    
-    // Masquer le logo-dot sur mobile
-    .logo-dot {
-      display: none;
-    }
+    display: none; // Masquer complètement le logo sur mobile
   }
 
   .nav-item {
-    padding: 0.4rem 0.6rem;
+    padding: 0.5rem 0.8rem;
 
     .nav-text {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
     }
   }
 }
 
 @media (max-width: 600px) {
-  .navbar-logo {
-    .logo-text {
-      font-size: 11px;
-    }
-  }
-
   .nav-item {
-    padding: 0.35rem 0.5rem;
+    padding: 0.45rem 0.7rem;
 
     .nav-text {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
     }
   }
 }
@@ -392,27 +386,21 @@
     }
   }
 
-  .navbar-logo {
-    .logo-text {
-      font-size: 10.5px;
-      white-space: nowrap;
-    }
-  }
-
   .navbar-menu {
-    gap: 0.1rem;
+    gap: 0.2rem;
   }
 
   .nav-item {
-    padding: 0.3rem 0.4rem;
+    padding: 0.4rem 0.6rem;
 
     .nav-text {
-      font-size: 0.5rem;
+      font-size: 0.75rem;
     }
+    
     .navbar-social-link {
-      width: 1.1rem;
-      height: 1.1rem;
-  }
+      width: 1.2rem;
+      height: 1.2rem;
+    }
   }
 
   .navbar-cta {
@@ -502,12 +490,9 @@
 
     }}
   .scroll-indicator {
-    /* DÉSACTIVÉ AUSSI EN DARK MODE */
-    display: none !important;
     background: rgba(255, 255, 255, 0.1);
 
     .scroll-progress {
-      display: none !important;
       background: linear-gradient(90deg, #64d2ff, #bf5af2);
     }
   }

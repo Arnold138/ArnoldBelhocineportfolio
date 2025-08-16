@@ -6,6 +6,13 @@
   margin-left: 1rem;
   outline: none;
   
+  // Positionnement sur mobile pour remplacer le logo
+  @media (max-width: 768px) {
+    position: absolute;
+    left: 1rem;
+    margin-left: 0;
+  }
+  
   .toggle-container {
     width: 50px;
     height: 26px;
