@@ -5,7 +5,7 @@ import GitHub from '../assets/images/github.png'
 const ProjectsSection = ({ projects }) => {
   const [openIndex, setOpenIndex] = useState(null); // index de la card ouverte
   const [isVisible, setIsVisible] = useState(false); // pour l'animation d'apparition au scroll
-  const [scrollProgress, setScrollProgress] = useState(0); // pour l'effet parchemin
+  // const [scrollProgress, setScrollProgress] = useState(0); // DÉSACTIVÉ - Plus de barre latérale
   const sectionRef = useRef(null); // ref pour la section principale
   const titleRefs = useRef([]); // refs pour les titres
   // Apparition au scroll
@@ -21,21 +21,21 @@ const ProjectsSection = ({ projects }) => {
     return () => observer.disconnect();
   }, []);
 
-  // Effet de scroll parchemin
-  useEffect(() => {
-    const handleScroll = () => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const sectionHeight = rect.height;
-        const scrollTop = Math.max(0, windowHeight - rect.top);
-        const progress = Math.min(1, scrollTop / (sectionHeight + windowHeight));
-        setScrollProgress(progress);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // DÉSACTIVÉ - Effet de scroll parchemin qui causait la barre latérale
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (sectionRef.current) {
+  //       const rect = sectionRef.current.getBoundingClientRect();
+  //       const windowHeight = window.innerHeight;
+  //       const sectionHeight = rect.height;
+  //       const scrollTop = Math.max(0, windowHeight - rect.top);
+  //       const progress = Math.min(1, scrollTop / (sectionHeight + windowHeight));
+  //       setScrollProgress(progress);
+  //     }
+  //   };
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   // Vérifier si les titres débordent
   useEffect(() => {
@@ -66,13 +66,14 @@ const ProjectsSection = ({ projects }) => {
       className={`projects-section ${isVisible ? 'projects-visible' : ''}`}
       ref={sectionRef}
     >
-      <div
+      {/* DÉSACTIVÉ - Parchment overlay qui causait la barre latérale */}
+      {/* <div
         className="parchment-overlay"
         style={{
           '--scroll-progress': scrollProgress,
           opacity: isVisible ? 1 : 0
         }}
-      />
+      /> */}
 
       <div className="projects-container">
         <div className={`projects-header ${isVisible ? 'header-visible' : ''}`}>

@@ -5,12 +5,22 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background:linear-gradient(235deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(235deg, #3b82f6, #8b5cf6);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   color: white;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--border-color);
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  // Dark theme adaptations for navbar
+  [data-theme="dark"] & {
+    background: linear-gradient(235deg, rgba(59, 130, 246, 0.8), rgba(139, 92, 246, 0.8));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    &.navbar-scrolled.navbar-hidden {
+      background: #161617 !important;
+    }
+  }
 
   
 
@@ -21,6 +31,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
+    // Dark mode
+    [data-theme="dark"] & {
+      background: #1d1d1f;
+    }
 
     @media (max-width: 768px) {
       padding: 0 1rem;
@@ -217,7 +232,7 @@
     transform: translateY(-1px);
 
     .nav-text {
-      color: #ffffff;
+      color: white;
     }
 
     .nav-indicator {
@@ -230,7 +245,7 @@
     background:wheat;
 
     .nav-text {
-      color: #007aff;
+      color: var(--accent-primary);
       font-weight: 500;
     }
 
@@ -309,8 +324,11 @@
   }
 }
 
-// Indicateur de scroll
+// Indicateur de scroll - DÉSACTIVÉ COMPLÈTEMENT
 .scroll-indicator {
+  /* DÉSACTIVÉ - Plus de barre de progression qui apparaît */
+  display: none !important;
+  
   position: absolute;
   bottom: 0;
   left: 0;
@@ -320,6 +338,7 @@
   overflow: hidden;
 
   .scroll-progress {
+    display: none !important;
     height: 100%;
     background: linear-gradient(90deg, #007aff, #5856d6);
     transform-origin: left center;
@@ -460,7 +479,7 @@
     &.nav-item-active {
      background: inherit;
       .nav-text {
-        color: #dfebf0;
+        color: var(--text-primary);
       }
 
       .nav-indicator {
@@ -470,9 +489,12 @@
   }
 
   .scroll-indicator {
+    /* DÉSACTIVÉ AUSSI EN DARK MODE */
+    display: none !important;
     background: rgba(255, 255, 255, 0.1);
 
     .scroll-progress {
+      display: none !important;
       background: linear-gradient(90deg, #64d2ff, #bf5af2);
     }
   }

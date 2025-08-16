@@ -7,8 +7,15 @@
     flex-direction: column;
     align-items: center;
     margin-top: 64px;
-    box-shadow: 0 -2px 20px #1e233240;
+    box-shadow: 0 -2px 20px var(--shadow-medium);
     font-size: 1.08rem;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  /* Footer en noir pour dark mode */
+  [data-theme="dark"] .footer {
+    background: #1D1D1F !important;
+    box-shadow: 0 -2px 20px var(--shadow-heavy);
   }
   
   .footer-main {

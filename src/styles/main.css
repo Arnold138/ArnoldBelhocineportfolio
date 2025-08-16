@@ -1,15 +1,25 @@
 :root {
-  --bg: #fff;
-  --bg2: #f5f7fa;
-  --text: #111827;
-  --subtitle: #4b5563;
+  /* LIGHT MODE */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #1a1a1a;
+  --text-secondary: #495057;
+  --text-muted: #6c757d;
+  --border-color: #dee2e6;
+  
+  /* Legacy variables */
+  --bg: var(--bg-primary);
+  --bg2: var(--bg-secondary);
+  --text: var(--text-primary);
+  --subtitle: var(--text-secondary);
   --primary: #3b82f6;
   --secondary: #8b5cf6;
   --gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
   --gradient-text: linear-gradient(90deg, #2563eb 0%, #8b5cf6 100%);
-  --button-border: #d1d5db;
+  --button-border: var(--border-color);
   --button-hover: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  --card-bg: #f9fafb;
+  --card-bg: var(--bg-tertiary);
   
   /* Variables pour le triangle narratif */
   --hero-level-1-size: 5rem;
@@ -21,19 +31,30 @@
   --hero-timing-slow: 1200ms;
 }
 
-/* Thème dark */
-body[data-theme="dark"] {
-  --bg: #161821;
-  --bg2: #242743;
-  --text: #e8eaf2;
-  --subtitle: #c7d0e4;
+/* DARK MODE - TOUTES LES VARIABLES */
+[data-theme="dark"] {
+  /* PRINCIPALES */
+  --bg-primary: #161617;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --text-primary: #f5f5f7;
+  --text-secondary: #f5f5f7;
+  --text-muted: #f5f5f7;
+  --border-color: #404040;
+  --sk-body-background-color: #1a1a1a;
+  
+  /* LEGACY */
+  --bg: #161617;
+  --bg2: #1a1a1a;
+  --text: #f5f5f7;
+  --subtitle: #f5f5f7;
   --primary: #8d7aff;
   --secondary: #9ecfff;
-  --gradient: linear-gradient(135deg, #282b43, #392969 90%);
-  --gradient-text: linear-gradient(90deg, #9ecfff 0%, #8d7aff 100%);
-  --button-border: #23243a;
+  --gradient: linear-gradient(135deg, #1a1a1a, #2a2a2a 90%);
+  --gradient-text: linear-gradient(90deg, #f5f5f0 0%, #d1d1c7 100%);
+  --button-border: #404040;
   --button-hover: linear-gradient(135deg, #9ecfff, #8d7aff);
-  --card-bg: #1c1f2b;
+  --card-bg: var(--sk-body-background-color);
 }
 
 /* =================== HERO SECTION =================== */
@@ -47,12 +68,16 @@ body[data-theme="dark"] {
   justify-content: center;
 }
 
+body {
+  margin: 0;
+}
 
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: rgba(255,255,255,0.72);
+  background: var(--bg-primary);
   z-index: 0;
+  transition: background 0.3s ease;
 }
 
 .hero-content {
@@ -84,7 +109,7 @@ body[data-theme="dark"] {
   display: block;
   font-size: var(--hero-level-1-size);
   font-weight: 700;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: var(--gradient-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -98,7 +123,7 @@ body[data-theme="dark"] {
   display: block;
   font-size: var(--hero-level-2-size);
   font-weight: 300;
-  color: var(--text);
+  color: var(--text-primary);
   opacity: 0.9;
   margin-bottom: 1.5rem;
   letter-spacing: -0.01em;
@@ -113,7 +138,7 @@ body[data-theme="dark"] {
   display: block;
   font-size: var(--hero-level-3-size);
   font-weight: 500;
-  color: var(--text);
+  color: var(--text-primary);
   margin-bottom: 3.5rem;
   letter-spacing: -0.005em;
   padding: 1rem 0;
@@ -145,6 +170,12 @@ body[data-theme="dark"] {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* Force avatar to maintain light mode appearance in dark theme */
+[data-theme="dark"] .avatar-container {
+  background: var(--background, linear-gradient(90deg, #0088ff, #692fff, #c1498a));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
 .avatar-name {
   font-size: 1.8rem;
   color: #fff;
@@ -158,6 +189,11 @@ body[data-theme="dark"] {
   align-items: center;
   justify-content: center;
   height: 100%;
+}
+
+/* Ensure avatar text stays white even in dark mode */
+[data-theme="dark"] .avatar-name {
+  color: #fff;
 }
 
 /* États de l'avatar */
@@ -212,10 +248,12 @@ body[data-theme="dark"] {
 /* =================== CURSEUR ET GRADIENT =================== */
 
 .hero-cursor {
-  color: var(--text);
+  color: var(--text-primary);
   font-weight: 300;
   margin-left: 2px;
   opacity: 0.8;
+  display: none !important; /* Désactivé complètement pour light et dark mode */
+  vertical-align: baseline;
 }
 
 /* Gradient text pour "success story" */
@@ -265,7 +303,17 @@ body[data-theme="dark"] {
 .btn-primary {
   border: 1px solid var(--button-border);
   background: transparent;
-  color: var(--text);
+  color: var(--text-primary);
+  
+  // Dark mode
+  [data-theme="dark"] & {
+    border: 2px solid;
+    border-image: linear-gradient(90deg, #0088ff, #692fff, #c1498a) 1;
+    
+    &:hover {
+      background: var(--background, linear-gradient(90deg, #0088ff, #692fff, #c1498a));
+    }
+  }
 }
 
 .btn-primary:hover {
@@ -275,9 +323,14 @@ body[data-theme="dark"] {
   box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
 }
 
+/* Dark mode hover pour btn-primary */
+[data-theme="dark"] .btn-primary:hover {
+  background: var(--background, linear-gradient(90deg, #0088ff, #692fff, #c1498a));
+}
+
 .btn-outline {
   border: 1px solid var(--button-border);
-  color: var(--subtitle);
+  color: var(--text-secondary);
   background: transparent;
 }
 
@@ -286,6 +339,11 @@ body[data-theme="dark"] {
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+}
+
+/* Dark mode hover pour btn-outline */
+[data-theme="dark"] .btn-outline:hover {
+  background: var(--background, linear-gradient(90deg, #0088ff, #692fff, #c1498a));
 }
 
 /* =================== SCROLL INDICATOR =================== */
@@ -354,6 +412,17 @@ body[data-theme="dark"] {
   border-radius: 50%;
   background: linear-gradient(210deg, #26007f, #16131568 70%);
   opacity: 0.20;
+  /* Force particles to always stay in light mode colors */
+}
+
+/* Particles en blanc pour dark theme */
+[data-theme="dark"] .particle {
+  background: white;
+  opacity: 0.15;
+}
+[data-theme="dark"] body {
+  background: black;
+  margin: 0;
 }
 
 /* Distribution des 35 particules avec animations variées */

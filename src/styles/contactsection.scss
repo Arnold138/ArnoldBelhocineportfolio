@@ -2,9 +2,10 @@
 .contact-section {
   position: relative;
   min-height: 100vh;
-  background: linear-gradient(135deg, #fafafa 0%, #f5f5f7 100%);
+  background: var(--bg-primary);
   padding: 5rem 0;
   overflow: hidden;
+  transition: background 0.3s ease;
 
   .contact-background {
     position: absolute;
@@ -51,9 +52,17 @@
   .contact-title {
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 300;
-    color: #1d1d1f;
+    color: var(--text-primary);
     margin-bottom: 1rem;
     letter-spacing: -0.02em;
+    
+    // Dark mode
+    [data-theme="dark"] & {
+      background: var(--background, linear-gradient(90deg, #0088ff, #692fff, #c1498a));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
     background: linear-gradient(135deg, #1d1d1f 0%, #424245 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -70,7 +79,7 @@
 
   .contact-subtitle {
     font-size: 1.125rem;
-    color: #86868b;
+    color: var(--text-muted);
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.6;
@@ -112,13 +121,13 @@
   .info-title {
     font-size: 1.75rem;
     font-weight: 300;
-    color: #1d1d1f;
+    color: var(--text-primary);
     margin-bottom: 1rem;
     letter-spacing: -0.01em;
   }
 
   .info-description {
-    color: #86868b;
+    color: var(--text-muted);
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 2.5rem;
@@ -139,6 +148,12 @@
     backdrop-filter: blur(10px);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    // Dark mode
+    [data-theme="dark"] & {
+      background: rgba(29, 29, 31, 0.8);
+      border: 1px solid rgba(64, 64, 64, 0.5);
+    }
     opacity: 0;
     transform: translateY(1rem);
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -181,22 +196,22 @@
 
     .info-label {
       font-size: 0.875rem;
-      color: #86868b;
+      color: var(--text-muted);
       font-weight: 500;
     }
 
     .info-value {
       font-size: 1rem;
-      color: #1d1d1f;
+      color: var(--text-primary);
       font-weight: 400;
 
       &.info-link {
-        color: #007aff;
+        color: var(--accent-primary);
         text-decoration: none;
         transition: color 0.3s ease;
 
         &:hover {
-          color: #0051d5;
+          color: var(--accent-secondary);
         }
       }
     }
@@ -228,6 +243,13 @@
   border-radius: 20px;
   padding: 2.5rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  
+  // Dark mode
+  [data-theme="dark"] & {
+    background: black !important;
+    color: #f5f5f7 !important;
+    border: 1px solid #404040 !important;
+  }
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
 
   .form-row {
@@ -250,7 +272,7 @@
     position: absolute;
     top: 1rem;
     left: 1rem;
-    color: #86868b;
+    color: var(--text-muted);
     font-size: 1rem;
     pointer-events: none;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -259,7 +281,7 @@
 
     &.label-focused {
       transform: translateY(-1rem) scale(0.875);
-      color: #007aff;
+      color: var(--accent-primary);
       font-weight: 500;
     }
   }
@@ -272,13 +294,29 @@
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 12px;
     font-size: 1rem;
-    color: #1d1d1f;
+    color: var(--text-primary);
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     outline: none;
     backdrop-filter: blur(10px);
 
+    // Dark mode
+    [data-theme="dark"] & {
+      background: #1d1d1f;
+      color: inherit;
+      border: 1px solid #404040;
+      
+      &:focus {
+        background: #1d1d1f;
+        color: inherit;
+      }
+      
+      &:hover {
+        color: inherit;
+      }
+    }
+
     &:focus {
-      border-color: #007aff;
+      border-color: var(--accent-primary);
       box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
       background: rgba(255, 255, 255, 1);
     }
@@ -302,9 +340,14 @@
     gap: 0.5rem;
     width: 100%;
     padding: 1rem 2rem;
-    background: #007aff;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
     color: white;
     border: none;
+    
+    // Dark mode
+    [data-theme="dark"] & {
+      background: linear-gradient(90deg, #0088ff, #692fff, #c1498a) !important;
+    }
     border-radius: 12px;
     font-size: 1rem;
     font-weight: 500;
@@ -331,7 +374,6 @@
     }
 
     &:hover {
-      background: #0051d5;
       transform: translateY(-1px);
       box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
 
@@ -345,11 +387,11 @@
     }
 
     &.sending {
-      background: #86868b;
+      background: var(--text-muted);
       cursor: not-allowed;
 
       &:hover {
-        background: #86868b;
+        background: var(--text-muted);
         transform: none;
         box-shadow: none;
       }

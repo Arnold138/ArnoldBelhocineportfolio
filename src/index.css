@@ -3,66 +3,389 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Light Theme Variables */
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #1a1a1a;
+  --text-secondary: #495057;
+  --text-muted: #6c757d;
+  --border-color: #dee2e6;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-medium: rgba(0, 0, 0, 0.1);
+  --shadow-heavy: rgba(0, 0, 0, 0.15);
+  --accent-primary: #646cff;
+  --accent-secondary: #535bf2;
+  
+  color-scheme: light;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+/* Dark Theme Variables */
+[data-theme="dark"] {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --text-primary: #f5f5f0;
+  --text-secondary: #d1d1c7;
+  --text-muted: #9a9a94;
+  --border-color: #404040;
+  --shadow-light: rgba(0, 0, 0, 0.2);
+  --shadow-medium: rgba(0, 0, 0, 0.3);
+  --shadow-heavy: rgba(0, 0, 0, 0.5);
+  --accent-primary: #646cff;
+  --accent-secondary: #535bf2;
+  
+  color-scheme: dark;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+/* Default to light theme if no data-theme is set */
+:root:not([data-theme]) {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #1a1a1a;
+  --text-secondary: #495057;
+  --text-muted: #6c757d;
+  --border-color: #dee2e6;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-medium: rgba(0, 0, 0, 0.1);
+  --shadow-heavy: rgba(0, 0, 0, 0.15);
+  --accent-primary: #646cff;
+  --accent-secondary: #535bf2;
+  
+  color-scheme: light;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--accent-primary);
   text-decoration: inherit;
+  transition: color 0.25s ease;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--accent-secondary);
+}
+
+html {
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
+}
+
+/* HTML en noir en dark mode */
+[data-theme="dark"] html {
+  background-color: #161617 !important;
+}
+
+/* MAIN en noir */
+[data-theme="dark"] main {
+  background: #1a1a1a;
 }
 
 body {
-  margin: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Body dark mode avec data-theme - FORCE ABSOLUE */
+[data-theme="dark"] body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #1d1d1f !important;
+  background-color: #1d1d1f !important;
+  min-height: 100vh !important;
+}
+
+/* Class dark-mode pour body - renforcement */
+body.dark-mode {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #1d1d1f !important;
+  min-height: 100vh !important;
+}
+
+/* Forcer le background sur html aussi */
+[data-theme="dark"] html {
+  background: #1d1d1f !important;
+}
+
+html.dark-mode {
+  background: #1d1d1f !important;
+}
+
+/* Ensure the main app container follows theme */
+#root {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Root en dark mode - MÊME COULEUR QUE BODY */
+[data-theme="dark"] #root {
+  background-color: #1d1d1f !important;
+  background: #1d1d1f !important;
+}
+
+/* Override body flex layout for our portfolio */
+body {
+  display: block !important;
+  place-items: unset !important;
+}
+
+/* FORCER le background body en dark mode sur TOUT - MAXIMUM FORCE */
+html[data-theme="dark"],
+html.dark-mode,
+[data-theme="dark"] html,
+body[data-theme="dark"],
+body.dark-mode,
+[data-theme="dark"] body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #1d1d1f !important;
+  background-color: #1d1d1f !important;
+  min-height: 100vh !important;
+}
+
+/* FORCER ENCORE PLUS */
+html[data-theme="dark"] body,
+html.dark-mode body,
+[data-theme="dark"] html body,
+body[data-theme="dark"].dark-mode {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #1d1d1f !important;
+  background-color: #1d1d1f !important;
+  min-height: 100vh !important;
+}
+
+/* RÈGLE ULTIME */
+*[data-theme="dark"] {
+  --bg-primary: #1d1d1f !important;
+}
+
+/* CLASSE SPÉCIFIQUE QUI MARCHE - TU L'AS DIT */
+.force-dark-body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #1d1d1f !important;
+  background-color: #1d1d1f !important;
+  min-height: 100vh !important;
+}
+
+body.force-dark-body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #1d1d1f !important;
+  background-color: #1d1d1f !important;
+  min-height: 100vh !important;
+}
+
+html.force-dark-body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #1d1d1f !important;
+  background-color: #1d1d1f !important;
+}
+
+/* RÈGLE SIMPLE ET EFFICACE */
+html body.dark-mode.force-dark-body {
+  background: #1D1D1F !important;
+  background-color: #1D1D1F !important;
+  margin: 0 !important;
+}
+
+/* OVERRIDE ULTIME - TA RÈGLE QUI MARCHE */
+body.dark-mode.force-dark-body {
+  background: #1D1D1F !important;
+  background-color: #1D1D1F !important;
+  margin: 0 !important;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  color: var(--text-primary);
+}
+
+h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
 }
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid var(--border-color);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s ease;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--accent-primary);
+  background-color: var(--bg-tertiary);
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* Global text color adaptations */
+.hero-level-1,
+.hero-level-2,
+.hero-level-3 {
+  color: var(--text-primary);
+}
+
+/* Section titles and headings */
+section h1,
+section h2,
+section h3,
+section h4,
+section h5,
+section h6 {
+  color: var(--text-primary);
+}
+
+/* Text content in sections */
+section p,
+section span {
+  color: var(--text-secondary);
+}
+
+/* Ensure proper contrast for interactive elements */
+.nav-item,
+.cta-button {
+  color: inherit;
+}
+
+/* Override specific cases where we want to maintain original colors */
+.gradient-text {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Cards and containers */
+.card,
+.project-card,
+.testimonial-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+/* DARK MODE CARDS ET TEXTES SPÉCIFIQUES - FORCE MAXIMALE */
+html[data-theme="dark"] body {
+  /* Cards dans les sections about et projects */
+  .card,
+  .project-card,
+  .testimonial-card,
+  .experience-card {
+    background-color: #1a1a1a !important;
+    color: #86868b !important;
   }
-  a:hover {
-    color: #747bff;
+  
+  /* testimonial-quote - couleur spécifique */
+  .testimonial-quote {
+    background-color: #1d1d1f !important;
+    color: #86868b !important;
   }
-  button {
-    background-color: #f9f9f9;
+  
+  /* profile-card - même couleur */
+  .profile-card {
+    background-color: #1d1d1f !important;
+    color: #f5f5f7 !important;
   }
+  
+  /* timeline-card - couleur spécifique */
+  .timeline-card {
+    background-color: #1d1d1f !important;
+    color: #f5f5f7 !important;
+  }
+  
+  /* skill-card - couleur spécifique */
+  .skill-card {
+    background-color: #1d1d1f !important;
+    color: #f5f5f7 !important;
+  }
+  
+  /* form contact */
+  .contact-form,
+  form.contact-form {
+    background-color: #1d1d1f !important;
+    color: #f5f5f7 !important;
+  }
+  
+  /* Titres en blanc */
+  h3.skills-title,
+  .section-title,
+  h1, h2, h3, h4, h5, h6 {
+    color: #f5f5f7 !important;
+  }
+  
+  /* Gradient sur les barres sous les titres H3 */
+  h3::after,
+  .section-title::after {
+    background: linear-gradient(90deg, #0088ff, #692fff, #c1498a) !important;
+  }
+  
+  /* Boutons avec gradient - VRAIES CLASSES */
+  .cv-button,
+  .form-submit,
+  button[type="submit"] {
+    background: linear-gradient(90deg, #0088ff, #692fff, #c1498a) !important;
+    color: white !important;
+    border: none !important;
+  }
+  
+  /* Phrase du major de gendarmerie */
+  .testimonial-text,
+  .quote,
+  .testimonial-content {
+    color: #86868b !important;
+  }
+}
+
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .project-card:hover,
+[data-theme="dark"] .testimonial-card:hover {
+  background: var(--bg-tertiary);
+  box-shadow: 0 8px 25px var(--shadow-medium);
+}
+
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .project-card:hover,
+[data-theme="dark"] .testimonial-card:hover {
+  background: var(--bg-tertiary);
+  box-shadow: 0 8px 25px var(--shadow-medium);
 }

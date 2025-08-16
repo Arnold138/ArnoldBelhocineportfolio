@@ -2,9 +2,10 @@
 .about-section {
   position: relative;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f5f7 0%, #fafafa 100%);
+  background: var(--bg-primary);
   padding: 5rem 0;
   overflow: hidden;
+  transition: background 0.3s ease;
 
   .about-background {
     position: absolute;
@@ -50,13 +51,23 @@
   .about-title {
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 300;
-    color: #1d1d1f;
+    color: var(--text-primary);
     margin-bottom: 1rem;
     letter-spacing: -0.02em;
+    
     background: linear-gradient(135deg, #1d1d1f 0%, #424245 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    
+    // Dark mode
+    [data-theme="dark"] & {
+      color: #ffffff !important;
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      -webkit-text-fill-color: #ffffff !important;
+      background-clip: unset !important;
+    }
   }
 
   .about-divider {
@@ -65,11 +76,17 @@
     background: linear-gradient(90deg, transparent, #86868b, transparent);
     margin: 1.5rem auto;
     opacity: 0.6;
+    
+    // Dark mode
+    [data-theme="dark"] & {
+      background: var(--background, linear-gradient(90deg, #0088ff, #692fff, #c1498a));
+      width: 100px;
+    }
   }
 
   .about-subtitle {
     font-size: 1.125rem;
-    color: #86868b;
+    color: var(--text-muted);
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.6;
@@ -110,6 +127,12 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 24px;
+  
+  // Dark mode
+  [data-theme="dark"] & {
+    background: #1d1d1f !important;
+    color: #f5f5f7 !important;
+  }
   padding: 3rem;
   border: 1px solid rgba(0, 0, 0, 0.04);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
@@ -162,7 +185,7 @@
     .profile-name {
       font-size: 1.875rem;
       font-weight: 600;
-      color: #1d1d1f;
+      color: var(--text-primary);
       margin-bottom: 0.5rem;
       letter-spacing: -0.02em;
       margin-top: 0;
@@ -170,7 +193,7 @@
 
     .profile-age {
       font-size: 1.05rem;
-      color: #86868b;
+      color: var(--text-muted);
       margin-bottom: 0.5rem;
       font-weight: 400;
     }
@@ -180,7 +203,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.75rem;
-      color: #6b7280;
+      color: var(--text-muted);
       font-size: 1.1rem;
       font-weight: 500;
       margin-top: 1.25rem;
@@ -197,7 +220,7 @@
     margin-bottom: 2.5rem;
 
     p {
-      color: #374151;
+      color: var(--text-secondary);
       line-height: 1.65;
       margin-bottom: 1.5rem;
       font-size: 1.1rem;
@@ -223,6 +246,11 @@
       padding: 0.875rem 1.5rem;
       background: #007aff;
       color: white;
+      
+      // Dark mode
+      [data-theme="dark"] & {
+        background: linear-gradient(90deg, #0088ff, #692fff, #c1498a) !important;
+      }
       text-decoration: none;
       border-radius: 12px;
       font-weight: 500;
@@ -303,6 +331,11 @@
   background: linear-gradient(90deg, transparent, #86868b, transparent);
   margin: 1.5rem auto 2rem auto;
   opacity: 0.4;
+  
+  // Dark mode
+  [data-theme="dark"] & {
+    background: var(--background, linear-gradient(90deg, #0088ff, #692fff, #c1498a)) !important;
+  }
 }
 
 // Parcours professionnel
@@ -325,16 +358,25 @@
   .journey-title {
     font-size: 2.5rem;
     font-weight: 300;
-    color: #111827;
+    color: var(--text-primary);
     margin-bottom: 1.5rem;
     background: linear-gradient(135deg, #111827 0%, #374151 100%);
+    
+    // Dark mode
+    [data-theme="dark"] & {
+      color: #ffffff !important;
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      -webkit-text-fill-color: #ffffff !important;
+      background-clip: unset !important;
+    }
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .journey-subtitle {
-    color: #6b7280;
+    color: var(--text-muted);
     font-size: 1.125rem;
     font-weight: 300;
     max-width: 600px;
@@ -423,6 +465,13 @@
       background: var(--experience-gradient);
       border-color: var(--experience-color);
       box-shadow: 0 0 30px var(--experience-color);
+      
+      // Dark mode
+      [data-theme="dark"] & {
+        background: var(--background, linear-gradient(90deg, #0088ff, #692fff, #c1498a)) !important;
+        border-color: #404040 !important;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5) !important;
+      }
     }
 
     .timeline-card {
@@ -443,8 +492,8 @@
   top: -1rem;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  color: #475569;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
   padding: 0.5rem 1rem;
   border-radius: 2rem;
   font-size: 0.875rem;
@@ -466,6 +515,13 @@
   left: 50%;
   transform: translateX(-50%);
   width: 80px;
+  
+  // Dark mode
+  [data-theme="dark"] & {
+    background: #333333;
+    box-shadow: none;
+    border: none;
+  }
   height: 80px;
   background: rgba(255, 255, 255, 0.95);
   border: 3px solid #e2e8f0;
@@ -524,6 +580,13 @@
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 1.5rem;
+  
+  // Dark mode
+  [data-theme="dark"] & {
+    background: #1d1d1f !important;
+    color: #f5f5f7 !important;
+    border: 1px solid #404040 !important;
+  }
   padding: 2.5rem;
   margin-top: 3rem;
   max-width: 400px;
@@ -542,7 +605,7 @@
     .timeline-title-premium {
       font-size: 1.5rem;
       font-weight: 600;
-      color: #111827;
+      color: var(--text-primary);
       margin: 0 0 0.75rem 0;
       line-height: 1.3;
     }
@@ -559,7 +622,7 @@
   }
 
   .timeline-subtitle-premium {
-    color: #6b7280;
+    color: var(--text-muted);
     font-size: 1.1rem;
     font-weight: 500;
     margin: 0 0 1rem 0;
@@ -580,6 +643,16 @@
   border-radius: 2rem;
   padding: 0.75rem 1.5rem;
   display: flex;
+  
+  // Dark mode
+  [data-theme="dark"] & {
+    background: black;
+    color: white;
+    
+    &:hover {
+      background: var(--background, linear-gradient(90deg, #0088ff, #692fff, #c1498a));
+    }
+  }
   align-items: center;
   gap: 0.75rem;
   font-size: 0.95rem;
@@ -600,7 +673,7 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: #f3f4f6;
+    background: var(--bg-secondary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -615,6 +688,13 @@
   background: rgba(248, 250, 252, 0.8);
   border-radius: 1rem;
   border: 1px solid rgba(226, 232, 240, 0.5);
+  
+  // Dark mode
+  [data-theme="dark"] & {
+    background: black;
+    color: white;
+    border: 1px solid #404040;
+  }
   backdrop-filter: blur(10px);
   animation: expandDetails 0.4s ease-out;
   
@@ -637,7 +717,7 @@
     h5 {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #111827;
+      color: var(--text-primary);
       margin: 0 0 1rem 0;
       border-bottom: 2px solid var(--experience-color, #3b82f6);
       padding-bottom: 0.5rem;
@@ -654,12 +734,12 @@
 
     .detail-label {
       font-weight: 500;
-      color: #6b7280;
+      color: var(--text-muted);
     }
 
     .detail-value {
       font-weight: 600;
-      color: #111827;
+      color: var(--text-primary);
     }
   }
 
@@ -672,7 +752,7 @@
       padding: 0.75rem 0;
       position: relative;
       padding-left: 2rem;
-      color: #374151;
+      color: var(--text-secondary);
       line-height: 1.5;
       opacity: 0;
       animation: slideInAchievement 0.5s ease-out forwards;
@@ -710,6 +790,12 @@
     border: 1px solid var(--experience-color, #3b82f6);
     border-radius: 2rem;
     font-size: 0.875rem;
+    
+    // Dark mode
+    [data-theme="dark"] & {
+      background: black;
+      color: white;
+    }
     font-weight: 500;
     color: var(--experience-color, #3b82f6);
     opacity: 0;
@@ -781,16 +867,25 @@
     .skills-title {
       font-size: 2.5rem;
       font-weight: 300;
-      color: #111827;
+      color: var(--text-primary);
       margin-bottom: 1.5rem;
       background: linear-gradient(135deg, #111827 0%, #374151 100%);
+      
+      // Dark mode
+      [data-theme="dark"] & {
+        color: #f5f5f7 !important;
+        background: white;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
     .skills-subtitle {
-      color: #6b7280;
+      color: var(--text-muted);
       max-width: 48rem;
       margin: 0 auto;
       line-height: 1.7;
@@ -813,6 +908,13 @@
   backdrop-filter: blur(20px);
   border: 1px solid rgba(0, 0, 0, 0.04);
   border-radius: 20px;
+  
+  // Dark mode
+  [data-theme="dark"] & {
+    background: #1d1d1f !important;
+    color: #f5f5f7 !important;
+    border: 1px solid #404040 !important;
+  }
   padding: 2.5rem;
   opacity: 0;
   transform: translate3d(0, 2rem, 0);
@@ -897,7 +999,7 @@
   .skill-category {
     font-size: 1.5rem;
     font-weight: 500;
-    color: #111827;
+    color: var(--text-primary);
     margin-bottom: 1rem;
   }
 
@@ -914,6 +1016,11 @@
       border-radius: 2rem;
       font-size: 0.875rem;
       font-weight: 500;
+      
+      // Dark mode
+      [data-theme="dark"] & {
+        background: black;
+      }
       background: rgba(255, 255, 255, 0.5);
       transition: all 0.3s ease;
       border-color: black;
@@ -927,7 +1034,7 @@
   }
 
   .skill-description {
-    color: #4b5563;
+    color: var(--text-secondary);
     font-size: 0.9rem;
     line-height: 1.5;
     margin-bottom: 0.75rem;
@@ -938,7 +1045,7 @@
   }
 
   .skill-achievement {
-    color: #6b7280;
+    color: var(--text-muted);
     font-style: italic;
     margin-bottom: 1rem;
     font-size: 0.95rem;
@@ -1001,7 +1108,7 @@
         display: block;
         font-size: 1.25rem;
         font-weight: 400;
-        color: #111827;
+        color: var(--text-primary);
         transition: all 0.3s ease;
       }
 
@@ -1015,6 +1122,14 @@
       &:hover .metric-value {
         transform: scale(1.1);
         color: var(--skill-color, #111827);
+        
+        // Dark mode gradient hover effect
+        [data-theme="dark"] & {
+          background: linear-gradient(90deg, #0088ff, #692fff, #c1498a);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
       }
     }
   }
@@ -1185,7 +1300,7 @@
   .quote-text {
     font-size: 1.5rem;
     font-weight: 300;
-    color: #1d1d1f;
+    color: var(--text-primary);
     font-style: italic;
     margin: 0 0 1rem 0;
     line-height: 1.4;
@@ -1197,7 +1312,7 @@
   }
 
   .quote-author {
-    color: #86868b;
+    color: var(--text-muted);
     font-size: 0.9rem;
     font-weight: 500;
   }

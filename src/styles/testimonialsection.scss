@@ -1,12 +1,7 @@
 /* Section témoignage */
 .testimonial-section {
   padding: 4rem 0;
-  background: linear-gradient(
-    135deg,
-    rgba(30, 58, 138, 0.05) 0%,
-    rgba(59, 130, 246, 0.08) 50%,
-    rgba(30, 58, 138, 0.05) 100%
-  );
+  background: var(--bg-secondary);
   position: relative;
   opacity: 0;
   transform: translateY(50px);
@@ -65,6 +60,12 @@
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   border-radius: 1.5rem;
+  
+  // Dark mode
+  [data-theme="dark"] & {
+    background: #1d1d1f !important;
+    color: #86868b !important;
+  }
   padding: 3rem 2.5rem;
   box-shadow: 
     0 10px 40px rgba(0, 0, 0, 0.1),
@@ -129,7 +130,7 @@
 blockquote {
   font-size: 1.375rem;
   line-height: 1.6;
-  color: #1f2937;
+  color: var(--text-primary);
   font-weight: 300;
   margin: 0 0 2rem 0;
   font-style: italic;
@@ -145,7 +146,7 @@ blockquote {
 
 cite {
   font-size: 1rem;
-  color: #6b7280;
+  color: var(--text-muted);
   font-weight: 500;
   font-style: normal;
   display: flex;
@@ -165,14 +166,14 @@ cite {
     content: '';
     width: 30px;
     height: 1px;
-    background: #d1d5db;
+    background: var(--border-color);
   }
 
   &::after {
     content: '';
     width: 30px;
     height: 1px;
-    background: #d1d5db;
+    background: var(--border-color);
   }
 }
 

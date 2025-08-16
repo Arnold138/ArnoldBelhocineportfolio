@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/navbarrr.scss';
+import ThemeToggle from './ThemeToggle';
 
-const NavBar = ({ onNav }) => {
+const NavBar = ({ onNav, isDarkMode, onToggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('accueil');
   const [navbarVisible, setNavbarVisible] = useState(true);
@@ -159,6 +160,9 @@ const NavBar = ({ onNav }) => {
             </button>
           ))}
         </div>
+
+        {/* Theme Toggle */}
+        <ThemeToggle isDarkMode={isDarkMode} onToggleTheme={onToggleTheme} />
 
         {/* Bouton CTA */}
         <div className="navbar-cta">

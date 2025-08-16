@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import NavBarr from './components/NavBarr'
 import HeroSection from './components/HeroSection'
 import ProjectsSection from './components/ProjectsSection'
@@ -14,6 +14,29 @@ import MonGif from '../src/assets/images/gitflamme.gif';
 
 
 export default function App() {
+  // Theme management at App level - START IN LIGHT MODE
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    return saved ? JSON.parse(saved) : false; // Default to light mode (false)
+  });
+
+  // Apply theme on mount and when changed
+  useEffect(() => {
+    // Apply to both html and body
+    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    document.documentElement.className = isDarkMode ? 'dark-mode force-dark-body' : 'light-mode';
+    document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    document.body.className = isDarkMode ? 'dark-mode force-dark-body' : 'light-mode';
+    localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
+    
+    console.log('Theme applied:', isDarkMode ? 'dark' : 'light');
+    console.log('Body classes:', document.body.className);
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   const scrollTo = (id) =>
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
@@ -59,7 +82,7 @@ export default function App() {
 
   return (
     <>
-      <NavBarr onNav={scrollTo} />
+      <NavBarr onNav={scrollTo} isDarkMode={isDarkMode} onToggleTheme={toggleTheme} />
 
       <main style={{ marginTop: '0' }}>
         <HeroSection onNav={scrollTo} />
