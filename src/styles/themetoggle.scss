@@ -6,6 +6,9 @@
   margin-left: 1rem;
   outline: none;
   
+  // Animation de sautillement au chargement de la page
+  animation: bounceIntro 2s ease-in-out 1s;
+  
   // Positionnement sur mobile pour remplacer le logo
   @media (max-width: 768px) {
     position: absolute;
@@ -68,5 +71,21 @@
   
   &:active .toggle-container {
     transform: scale(0.95);
+  }
+}
+
+// Animation de sautillement au chargement
+@keyframes bounceIntro {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  10% {
+    transform: translateY(-8px);
+  }
+  30% {
+    transform: translateY(-6px);
+  }
+  60% {
+    transform: translateY(-4px);
   }
 }
