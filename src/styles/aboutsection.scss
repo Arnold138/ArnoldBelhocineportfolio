@@ -71,9 +71,9 @@
   }
 
   .about-divider {
-    width: 60px;
+    width: 100px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #86868b, transparent);
+    background: var(--background, linear-gradient(90deg, #0088ff, #692fff, #c1498a));
     margin: 1.5rem auto;
     opacity: 0.6;
     
@@ -326,11 +326,10 @@
 
 // Title Dividers - Style Apple minimaliste
 .title-divider {
-  width: 60px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #86868b, transparent);
+  width: 100px;
+  height: 2px;
+  background: var(--background, linear-gradient(90deg, #0088ff, #692fff, #c1498a));
   margin: 1.5rem auto 2rem auto;
-  opacity: 0.4;
   
   // Dark mode
   [data-theme="dark"] & {

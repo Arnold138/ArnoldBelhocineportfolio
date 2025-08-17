@@ -6,7 +6,6 @@ const NavBar = ({ onNav, isDarkMode, onToggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('accueil');
   const [navbarVisible, setNavbarVisible] = useState(true);
-  const [firstLoad, setFirstLoad] = useState(true);
 
   // Détection du scroll pour effet de blur/transparence
   useEffect(() => {
@@ -51,51 +50,10 @@ const NavBar = ({ onNav, isDarkMode, onToggleTheme }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Navbar affichée pendant 8s au chargement
+  // Navbar always visible - removed hide/show logic
   useEffect(() => {
     setNavbarVisible(true);
-    const timer = setTimeout(() => {
-      setFirstLoad(false);
-      // Si la souris n'est PAS en haut au moment des 8s, cache la navbar
-      if (typeof window !== "undefined") {
-        // On check la position de la souris si elle existe
-        document.addEventListener("mousemove", function once(e) {
-          if (e.clientY >= 30) {
-            setNavbarVisible(false);
-          }
-          document.removeEventListener("mousemove", once);
-        });
-      }
-    }, 8000);
-    return () => clearTimeout(timer);
   }, []);
-
-  // Gestion de la navbar qui s'affiche/se cache selon la position de la souris APRÈS les 8s
-  useEffect(() => {
-    if (firstLoad) return;
-
-    let timeoutId = null;
-
-    const handleMouseMove = (e) => {
-      if (e.clientY < 30) {
-        setNavbarVisible(true);
-        if (timeoutId) {
-          clearTimeout(timeoutId);
-          timeoutId = null;
-        }
-      } else {
-        if (timeoutId) clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => setNavbarVisible(false), 700);
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [firstLoad]);
 
   const navigationItems = [
     { id: 'accueil', label: 'Accueil', target: 'home' },
@@ -142,6 +100,8 @@ const NavBar = ({ onNav, isDarkMode, onToggleTheme }) => {
                 <path fill="currentColor" d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.29c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.29h-3v-4.5c0-1.08-.02-2.48-1.51-2.48-1.51 0-1.74 1.18-1.74 2.4v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.36-1.54 2.8-1.54 3 0 3.55 1.97 3.55 4.54v4.77z"/>
               </svg>
             </a>
+            {/* Theme Toggle moved here */}
+            <ThemeToggle isDarkMode={isDarkMode} onToggleTheme={onToggleTheme} />
           </div>
         </div>
 
@@ -160,9 +120,6 @@ const NavBar = ({ onNav, isDarkMode, onToggleTheme }) => {
             </button>
           ))}
         </div>
-
-        {/* Theme Toggle */}
-        <ThemeToggle isDarkMode={isDarkMode} onToggleTheme={onToggleTheme} />
 
         {/* Bouton CTA */}
         <div className="navbar-cta">

@@ -119,11 +119,6 @@ export default function HeroSection({ onNav }) {
   return (
     <section id="home" className="hero">
       <div className="hero-bg" />
-      <div className="css-particles">
-        {[...Array(35)].map((_, i) => (
-          <span className={`particle p${i+1}`} key={i}></span>
-        ))}
-      </div>
 
       <div className="hero-content">
         {/* Triangle narratif inversé - Texte principal */}

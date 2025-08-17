@@ -3,11 +3,11 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  margin-left: 1rem;
+  margin-left: 0.6rem;
   outline: none;
   
-  // Animation de sautillement au chargement de la page
-  animation: bounceIntro 2s ease-in-out 1s;
+  // Animation de sautillement au chargement de la page suivi d'un bounce infini avec brillance
+  animation: bounceIntro 2s ease-in-out 1s, infiniteBounce 3s ease-in-out 3s infinite;
   
   // Positionnement sur mobile pour remplacer le logo
   @media (max-width: 768px) {
@@ -17,25 +17,27 @@
   }
   
   .toggle-container {
-    width: 50px;
-    height: 26px;
+    width: 42px;
+    height: 22px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 50px;
     position: relative;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1), 0 0 0 rgba(102, 126, 234, 0.4);
+    animation: subtleGlow 2s ease-in-out infinite;
     
     &.dark {
       background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 0 rgba(255, 255, 255, 0.2);
+      animation: subtleGlowDark 2s ease-in-out infinite;
     }
     
     .toggle-slider {
       position: absolute;
       top: 2px;
       left: 2px;
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
       background: white;
       border-radius: 50%;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -45,13 +47,13 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
       
       .toggle-icon {
-        font-size: 12px;
+        font-size: 10px;
         line-height: 1;
       }
     }
     
     &.dark .toggle-slider {
-      transform: translateX(24px);
+      transform: translateX(20px);
       background: #1a1a1a;
       color: #f5f5f0;
     }
@@ -87,5 +89,35 @@
   }
   60% {
     transform: translateY(-4px);
+  }
+}
+
+// Animation de bounce infinie plus subtile
+@keyframes infiniteBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+// Animation de brillance subtile
+@keyframes subtleGlow {
+  0%, 100% {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1), 0 0 0 rgba(102, 126, 234, 0.4);
+  }
+  50% {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1), 0 0 8px rgba(102, 126, 234, 0.6);
+  }
+}
+
+// Animation de brillance pour le mode sombre
+@keyframes subtleGlowDark {
+  0%, 100% {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 8px rgba(255, 255, 255, 0.4);
   }
 }

@@ -31,6 +31,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     
     // Dark mode
     [data-theme="dark"] & {
@@ -40,6 +41,10 @@
     @media (max-width: 768px) {
       padding: 0 1rem;
     }
+  }
+
+  &.navbar-scrolled .navbar-container {
+    height: 40px;
   }
 }
 
@@ -383,6 +388,10 @@
     .navbar-container {
       padding: 0 0.75rem;
       height: 56px;
+    }
+
+    &.navbar-scrolled .navbar-container {
+      height: 44px;
     }
   }
 
