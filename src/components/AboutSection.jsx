@@ -173,7 +173,7 @@ const AboutSection = () => {
     <div className="about-background" />
         {/* En-tête de section */}
         <div className={`about-header ${isVisible ? 'header-visible' : ''}`}>
-          <h2 className="about-title">À propos de moi</h2>
+          <h2 className="about-title">A propos de moi</h2>
           <div className="about-divider" />
         </div>
 

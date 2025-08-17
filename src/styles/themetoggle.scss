@@ -9,12 +9,6 @@
   // Animation de sautillement au chargement de la page suivi d'un bounce infini avec brillance
   animation: bounceIntro 2s ease-in-out 1s, infiniteBounce 3s ease-in-out 3s infinite;
   
-  // Positionnement sur mobile pour remplacer le logo
-  @media (max-width: 768px) {
-    position: absolute;
-    left: 1rem;
-    margin-left: 0;
-  }
   
   .toggle-container {
     width: 42px;

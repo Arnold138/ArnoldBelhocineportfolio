@@ -58,7 +58,7 @@ const NavBar = ({ onNav, isDarkMode, onToggleTheme }) => {
   const navigationItems = [
     { id: 'accueil', label: 'Accueil', target: 'home' },
     { id: 'projets', label: 'Projets', target: 'projects' },
-    { id: 'about', label: 'À Propos', target: 'about' },
+    { id: 'about', label: 'A Propos', target: 'about' },
     { id: 'contact', label: 'Contact', target: 'contact' }
   ];
   
@@ -103,6 +103,11 @@ const NavBar = ({ onNav, isDarkMode, onToggleTheme }) => {
             {/* Theme Toggle moved here */}
             <ThemeToggle isDarkMode={isDarkMode} onToggleTheme={onToggleTheme} />
           </div>
+        </div>
+
+        {/* Theme Toggle for mobile */}
+        <div className="mobile-theme-toggle">
+          <ThemeToggle isDarkMode={isDarkMode} onToggleTheme={onToggleTheme} />
         </div>
 
         {/* Navigation principale */}
