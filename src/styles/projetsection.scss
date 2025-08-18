@@ -292,10 +292,8 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   
-  /* Text align left on mobile */
-  @media (max-width: 768px) {
-    text-align: left;
-  }
+  /* Text align left sur tous les écrans - force override */
+  text-align: left !important;
   
   /* Animation SEULEMENT pour les textes qui débordent */
   &.text-overflowing:hover {

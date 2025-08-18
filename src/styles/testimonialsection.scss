@@ -105,6 +105,14 @@
     font-weight: bold;
     line-height: 1;
   }
+
+  // Dark mode - white quotes
+  [data-theme="dark"] & {
+    &::before,
+    &::after {
+      color: white;
+    }
+  }
 }
 
 .testimonial-icon {

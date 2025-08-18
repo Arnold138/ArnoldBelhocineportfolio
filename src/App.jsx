@@ -21,7 +21,7 @@ export default function App() {
     return saved ? JSON.parse(saved) : false; // Default to light mode (false)
   });
 
-  // Apply theme on mount and when changed
+  
   useEffect(() => {
     // Apply to both html and body
     document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
