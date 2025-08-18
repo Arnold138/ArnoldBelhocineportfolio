@@ -1,5 +1,4 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 0;
   text-align: center;
@@ -39,4 +38,9 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* MAIN BACKGROUND BLACK EN DARK MODE */
+[data-theme="dark"] main {
+  background: black !important;
 }

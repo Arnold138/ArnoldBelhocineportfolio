@@ -80,6 +80,11 @@ body {
   transition: background 0.3s ease;
 }
 
+/* Hero background noir en dark mode */
+[data-theme="dark"] .hero-bg {
+  background: #1a1a1a !important;
+}
+
 .hero-content {
   position: relative;
   z-index: 1;

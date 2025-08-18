@@ -89,9 +89,42 @@ html {
   background-color: #161617 !important;
 }
 
-/* MAIN en noir */
+/* MAIN en noir complet */
 [data-theme="dark"] main {
-  background: #1a1a1a;
+  background: black;
+  background-color: black;
+  min-height: 100vh;
+}
+
+/* BODY en noir en dark mode */
+[data-theme="dark"] body {
+  background: #1a1a1a !important;
+  background-color: #1a1a1a !important;
+}
+
+/* ROOT element en noir */
+[data-theme="dark"] {
+  background: #1a1a1a !important;
+  background-color: #1a1a1a !important;
+}
+
+/* TOUS les containers en noir pour éviter les écarts blancs */
+[data-theme="dark"] * {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] #root {
+  background: #1a1a1a !important;
+  background-color: #1a1a1a !important;
+}
+
+/* Éliminer les espaces blancs entre sections */
+[data-theme="dark"] section {
+  background: #1a1a1a !important;
+}
+
+[data-theme="dark"] div:not([class*="gradient"]):not([class*="hero"]):not([class*="avatar"]):not([class*="button"]):not([class*="card"]):not([class*="nav"]) {
+  background-color: transparent !important;
 }
 
 body {
@@ -263,6 +296,11 @@ button:focus-visible {
 .hero-level-2,
 .hero-level-3 {
   color: var(--text-primary);
+}
+
+/* MAIN BACKGROUND BLACK EN DARK MODE - ORDRE DIRECT */
+[data-theme="dark"] main {
+  background: black !important;
 }
 
 /* Section titles and headings */

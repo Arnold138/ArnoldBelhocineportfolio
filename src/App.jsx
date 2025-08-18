@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import './App.css'
 import NavBarr from './components/NavBarr'
 import HeroSection from './components/HeroSection'
 import ProjectsSection from './components/ProjectsSection'
