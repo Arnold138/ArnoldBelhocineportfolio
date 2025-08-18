@@ -659,6 +659,7 @@
     
     &:hover {
       background: var(--background, linear-gradient(90deg, #0088ff, #692fff, #c1498a));
+      color: white;
     }
   }
   align-items: center;
@@ -673,7 +674,8 @@
 
   &:hover {
     border-color: var(--experience-color, #3b82f6);
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--experience-gradient, linear-gradient(135deg, #3b82f6, #8b5cf6));
+    color: white;
     transform: translateY(-1px);
   }
 
@@ -687,6 +689,10 @@
     justify-content: center;
     font-weight: 600;
     transition: all 0.3s ease;
+  }
+
+  &:hover .toggle-icon {
+    background: transparent;
   }
 }
 

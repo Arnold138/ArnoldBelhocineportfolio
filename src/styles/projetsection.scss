@@ -275,6 +275,7 @@
 .project-content {
   padding: 1.5rem;
   position: relative;
+  text-align: left;
 }
 
 .project-title {
@@ -290,6 +291,11 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  
+  /* Text align left on mobile */
+  @media (max-width: 768px) {
+    text-align: left;
+  }
   
   /* Animation SEULEMENT pour les textes qui débordent */
   &.text-overflowing:hover {
@@ -613,6 +619,7 @@ img.project-image {
   @media (max-width: 530px) {
     .project-title {
       font-size: 16px;
+      text-align: left;
     }
     
     a.project-link {

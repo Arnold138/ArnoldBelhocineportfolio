@@ -277,8 +277,8 @@ const AboutSection = () => {
                     <p className="timeline-description-premium">{exp.description}</p>
                     
                     <button className="details-toggle">
-                      <span>Voir les détails</span>
-                      <div className="toggle-icon">
+                      <span>{selectedExperience === exp.id ? 'Réduire les détails' : 'Voir les détails'}</span>
+                      <div className="toggle-icon" style={{ display: selectedExperience === exp.id ? 'none' : 'flex' }}>
                         {selectedExperience === exp.id ? '−' : '+'}
                       </div>
                     </button>
